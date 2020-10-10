@@ -37,3 +37,32 @@ jobs:
         run: dotnet restore
       - name: Build
         run: dotnet build --configuration Release --no-restore
+        
+  # Lint checker UI job
+  lint-ui:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Setup NodeJS
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.13.1
+      - name: Install dependencies
+        run: npm --prefix ui/ install
+      - name: Run lint checker
+        run: npm --prefix ui/ run lint
+
+  # Build UI job
+  build-ui:
+    needs: lint-ui
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Setup NodeJS
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.13.1
+      - name: Install dependencies
+        run: npm --prefix ui/ install
+      - name: Build
+        run: npm --prefix ui/ run build
