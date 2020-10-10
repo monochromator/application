@@ -1,4 +1,3 @@
-using System.IO;
 using Chromely.Core.Configuration;
 
 namespace Monochromator.App {
@@ -6,7 +5,6 @@ namespace Monochromator.App {
     /// Custom configuration for chromely
     /// </summary>
     public static class Configuration {
-
         /// <summary>
         /// Create Chromely configuration
         /// </summary>
@@ -18,7 +16,7 @@ namespace Monochromator.App {
             config.AppName = "monochromator";
 #if DEBUG
             config.StartUrl = "http://localhost:8080/";
-#else    
+#else
             config.StartUrl = "local://ui/index.html";
 #endif
 #if DEBUG

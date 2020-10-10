@@ -24,7 +24,8 @@ namespace Monochromator.App {
         /// Run backend code
         /// </summary>
         /// <param name="config">Configuration</param>
-        public static void Run(IChromelyConfiguration config) {
+        /// <param name="container">Container</param>
+        public static void Run(IChromelyConfiguration config, IChromelyContainer container) {
             Logger.Info("Start main thread");
 
             // Check JS executor

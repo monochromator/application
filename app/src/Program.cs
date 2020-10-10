@@ -40,13 +40,13 @@ namespace Monochromator.App {
             var file = new FileTarget {
                 Layout = layout,
                 FileName = "${basedir}/Logs/application.log",
-                
+
                 ArchiveFileName = "${basedir}/Logs/application_{#}.log",
                 ArchiveNumbering = ArchiveNumberingMode.Date,
                 ArchiveAboveSize = 1 * 1000 * 1000, // 1Mo
                 MaxArchiveFiles = 3,
             };
-            
+
             // Add rules
 #if DEBUG
             config.AddRule(LogLevel.Trace, LogLevel.Fatal, console);
