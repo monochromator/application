@@ -3,8 +3,7 @@ import StartUp from "@/components/StartUp.vue";
 import Home from "@/components/Home.vue";
 
 const STARTUP_PATH = "/";
-const HOME_PATH_PREFIX = "/home/";
-const HOME_PATH = HOME_PATH_PREFIX + ":device";
+const HOME_PATH = "/home/";
 
 const routes: Array<RouteConfig> = [
     {
@@ -18,4 +17,4 @@ const routes: Array<RouteConfig> = [
     }
 ];
 
-export { STARTUP_PATH, HOME_PATH_PREFIX, routes };
+export { STARTUP_PATH, HOME_PATH, routes };

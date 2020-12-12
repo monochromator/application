@@ -61,7 +61,7 @@
 <script lang="ts">
     import { Component, Vue } from "vue-property-decorator";
     import { HttpMethod, query } from "@/services/ChromelyService";
-    import { HOME_PATH_PREFIX } from "@/routes";
+    import { HOME_PATH } from "@/routes";
 
     type Device = string;
 
@@ -183,7 +183,7 @@
 
                 // Go to home
                 this.$router.push({
-                    path: HOME_PATH_PREFIX + device,
+                    path: HOME_PATH,
                     query: {
                         device: device
                     }

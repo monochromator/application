@@ -58,6 +58,7 @@
      */
     interface HomeData {
       menuVisible: boolean;
+      device: string;
     }
 
     /**
@@ -67,21 +68,19 @@
       components: { ToolBar }
     })
     export default class Home extends Vue {
-      @Prop({ required: true })
-      public device?: string;
+        data(): HomeData {
+            return {
+                menuVisible: false,
+                device: this.$route.query.device + ""
+            };
+        }
 
-      data(): HomeData {
-        return {
-          menuVisible: false
-        };
-      }
-
-      /**
-       * Toggle menu
-       */
-      toggleMenu() {
-        this.$data.menuVisible = !this.$data.menuVisible;
-      }
+        /**
+         * Toggle menu
+         */
+        toggleMenu() {
+            this.$data.menuVisible = !this.$data.menuVisible;
+        }
     }
 </script>
 
