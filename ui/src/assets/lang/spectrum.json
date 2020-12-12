@@ -1,0 +1,26 @@
+{
+    "en": {
+        "spectrum": {
+            "xAxis_title": "Wave length (nm)",
+            "yAxis_title": "Intensity",
+            "colorscale_title": "Visible light",
+            "line_title": "Results",
+            "filter_btn_title": "Filters",
+            "save_btn_title": "Save",
+            "filter_btn_raw": "Raw data",
+            "filter_btn_smooth": "Smooth"
+        }
+    },
+    "fr": {
+        "spectrum": {
+            "xAxis_title": "Longueur d'onde (nm)",
+            "yAxis_title": "Intensitée",
+            "colorscale_title": "Lumière visible",
+            "line_title": "Résultats",
+            "filter_btn_title": "Filtres",
+            "save_btn_title": "Sauvegarder",
+            "filter_btn_raw": "Données brut",
+            "filter_btn_smooth": "Lissage"
+        }
+    }
+}
