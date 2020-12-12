@@ -13,10 +13,11 @@ namespace Monochromator.App.Mbed {
         /// Constructor
         /// </summary>
         /// <param name="port">Port name</param>
-        public SerialConnection(string port) {
+        /// <param name="timeout">Request timeout</param>
+        public SerialConnection(string port, int timeout = 5000) {
             _port = new SerialPort {
-                ReadTimeout = 5000,
-                WriteTimeout = 5000,
+                ReadTimeout = timeout,
+                WriteTimeout = timeout,
                 PortName = port,
                 BaudRate = 9600,
                 DataBits = 8,
@@ -38,6 +39,16 @@ namespace Monochromator.App.Mbed {
         /// <param name="buffer">Buffer</param>
         public void Send(byte[] buffer) {
             _port.Write(buffer, 0, buffer.Length);
+        }
+
+        /// <summary>
+        /// Send an unsigned integer through connection
+        /// </summary>
+        /// <param name="value">Value</param>
+        public void Send(uint value) {
+            var bytes = BitConverter.GetBytes(value);
+
+            _port.Write(bytes, 0, bytes.Length);
         }
 
         /// <summary>

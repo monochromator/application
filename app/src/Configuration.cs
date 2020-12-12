@@ -29,6 +29,7 @@ namespace Monochromator.App {
                 DownloadSilently = false
             };
             config.WindowOptions.RelativePathToIconFile = "icon.ico";
+            config.WindowOptions.Size = new WindowSize(1280, 720);
 
             return config;
         }
