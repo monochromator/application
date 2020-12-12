@@ -1,0 +1,26 @@
+{
+    "en": {
+        "startup": {
+            "select_device": "Select monochromator",
+            "select": "Select",
+            "autodetect": "Autodetect",
+            "autodetect_loading": "Searching monochromator...",
+            "fetch_devices_error": "Failed to retrieve monochromators",
+            "devices_detection_error": "Failed to find a monochromator",
+            "device_connection_error": "Failed to connect to {device}",
+            "connection_loading": "Connecting..."
+        }
+    },
+    "fr": {
+        "startup": {
+            "select_device": "Sélectionner le monochromateur",
+            "select": "Valider",
+            "autodetect": "Détecter",
+            "autodetect_loading": "Détection automatique...",
+            "fetch_devices_error": "Impossible de lister les monochromateurs",
+            "devices_detection_error": "Aucun monochromateur détecté",
+            "device_connection_error": "Impossible de se connecter à {device}",
+            "connection_loading": "Connexion en cours..."
+        }
+    }
+}

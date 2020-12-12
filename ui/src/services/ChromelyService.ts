@@ -1,14 +1,52 @@
 /**
+ * Response returned by query function
+ */
+interface CefResponse {
+    Data: object;
+    ReadyState: number;
+    Status: number;
+    StatusText: string;
+}
+
+/**
+ * HTTP methods
+ */
+enum HttpMethod {
+    Get = "GET"
+}
+
+/**
+ * Request sent by query function
+ */
+interface CefRequest {
+    method: HttpMethod;
+    url: string;
+    parameters?: { [key: string]: string };
+    postData?: object;
+}
+
+/**
  * Send a query to backend
  *
  * @param request Request
  * @param onSuccess Callback on success
  * @param onError Callback on error
  */
-export function query(request: object, onSuccess: (response: string) => void, onError: (error: Error, message: string) => void) {
+const query = function(request: CefRequest, onSuccess: (response: CefResponse) => void, onError: (error: string) => void) {
     return (window as any).cefQuery({
         request: JSON.stringify(request),
-        onSuccess: onSuccess,
-        onFailure: onError
+        onSuccess: function(response: string) {
+            // Parse response
+            const responseAsJson = JSON.parse(response);
+
+            // Call callbacks based on response
+            if (responseAsJson.Status === 200) {
+                onSuccess(responseAsJson as CefResponse);
+            } else {
+                onError(responseAsJson.Data);
+            }
+        }
     });
-}
+};
+
+export { HttpMethod, CefRequest, CefResponse, query };
