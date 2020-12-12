@@ -18,12 +18,8 @@
 <script lang="ts">
     import { Component, Vue, Prop } from "vue-property-decorator";
     import * as Plotly from "plotly.js";
-/**
- * Data requiered to display the spectrum plot
- */
-// interface SpectrumData {
-//   spectrumData: ;
-// }
+
+    // Todo : set the plotId to be randomly generated to avoid plot id concurency
 
 @Component
     export default class Spectrum extends Vue {
@@ -152,5 +148,8 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
+}
+#spectrum_plot{
+  height: 100%;
 }
 </style>
