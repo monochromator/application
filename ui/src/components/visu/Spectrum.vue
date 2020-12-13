@@ -107,11 +107,6 @@
       type: "heatmap"
     };
 
-    console.log("====================");
-    console.log(this.$t("spectrum.graph_title"));
-    console.log(this.$t("spectrum.xAxis_title"));
-    console.log(this.$t("spectrum.colorscale_title"));
-
     // Draw plot
     Plotly.plot("spectrum_plot", [ heatmap, linePlot ], {
           xaxis: {
