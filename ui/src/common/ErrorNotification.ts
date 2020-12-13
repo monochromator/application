@@ -1,8 +1,10 @@
 /**
  * Error notification data
  */
-export default interface ErrorNotification {
+interface ErrorNotification {
     status: boolean;
     label?: string;
     parameters?: { [key: string]: string };
-};
+}
+
+export default ErrorNotification;
