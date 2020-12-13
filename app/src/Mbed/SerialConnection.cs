@@ -52,6 +52,16 @@ namespace Monochromator.App.Mbed {
         }
 
         /// <summary>
+        /// Send a float through connection
+        /// </summary>
+        /// <param name="value">Value</param>
+        public void Send(float value) {
+            var bytes = BitConverter.GetBytes(value);
+
+            _port.Write(bytes, 0, bytes.Length);
+        }
+
+        /// <summary>
         /// Read <paramref name="size"/> bytes from connection
         /// </summary>
         /// <param name="size">Count of bytes to read</param>
