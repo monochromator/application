@@ -12,7 +12,8 @@ interface CefResponse {
  * HTTP methods
  */
 enum HttpMethod {
-    Get = "GET"
+    Get = "GET",
+    Post = "POST"
 }
 
 /**

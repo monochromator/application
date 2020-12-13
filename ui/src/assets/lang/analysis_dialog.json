@@ -1,0 +1,28 @@
+{
+    "en": {
+        "analysis_dialog": {
+            "title": "Analysis launcher",
+            "run": "Run",
+            "close": "Close",
+            "range_start_label": "Start",
+            "range_start_error": "Start should be less or equal to end",
+            "range_end_label": "End",
+            "range_end_error": "End should be greater or equal to start",
+            "range_step_label": "Step",
+            "range_step_error": "Step should be greater than 0"
+        }
+    },
+    "fr": {
+        "analysis_dialog": {
+            "title": "Analyse",
+            "run": "Lancer",
+            "close": "Fermer",
+            "range_start_label": "Début",
+            "range_start_error": "Début doit être inférieur ou égal à Fin",
+            "range_end_label": "Fin",
+            "range_end_error": "Fin doit être supérieur ou égal à Début",
+            "range_step_label": "Pas",
+            "range_step_error": "Pas doit être supérieur à 0"
+        }
+    }
+}
