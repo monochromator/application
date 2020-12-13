@@ -98,8 +98,8 @@
       else zTemp.push(i);
     }
 
-    zTemp[0] = longMin; // To
-    zTemp[zTemp.length - 1] = longMax; // To
+    zTemp[0] = longMin; // Replacement to plotly zmin
+    zTemp[zTemp.length - 1] = longMax; // Replacement to plotly zmax
 
     const heatmapZ: number[][] = [ zTemp ];
 
