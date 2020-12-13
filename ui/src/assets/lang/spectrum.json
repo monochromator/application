@@ -14,12 +14,12 @@
     "fr": {
         "spectrum": {
             "xAxis_title": "Longueur d'onde (nm)",
-            "yAxis_title": "Intensitée",
+            "yAxis_title": "Intensité",
             "colorscale_title": "Lumière visible",
             "line_title": "Résultats",
             "filter_btn_title": "Filtres",
             "save_btn_title": "Sauvegarder",
-            "filter_btn_raw": "Données brut",
+            "filter_btn_raw": "Données brutes",
             "filter_btn_smooth": "Lissage"
         }
     }
