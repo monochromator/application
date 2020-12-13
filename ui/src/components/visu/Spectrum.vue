@@ -11,7 +11,7 @@
       </md-menu-content>
     </md-menu>
     </div>
-    <div id="spectrum_plot"/>
+    <div :id="'spectrum_plot_' + id"/>
   </div>
 </template>
 
@@ -19,35 +19,36 @@
     import { Component, Vue, Prop } from "vue-property-decorator";
     import * as Plotly from "plotly.js";
 
-    // Todo : set the plotId to be randomly generated to avoid plot id concurency
-
 @Component
     export default class Spectrum extends Vue {
   @Prop({ required: true })
   public spectrumData!: [number, number][];
 
+  private id = Math.random()
+
   mounted() {
     const visibleColorSepctrum: [number, string][] = [
       [ 0, "#000000" ],
-      [ 380, "#27005B" ],
-      [ 449, "#2A007B" ],
-      [ 466, "#002F83" ],
-      [ 478, "#004769" ],
-      [ 483, "#005162" ],
-      [ 490, "#00725F" ],
-      [ 510, "#00AF6C" ],
-      [ 541, "#59C000" ],
-      [ 573, "#CAB300" ],
-      [ 575, "#D2A900" ],
-      [ 579, "#D79300" ],
-      [ 584, "#DE8400" ],
-      [ 588, "#E77700" ],
-      [ 593, "#F55000" ],
-      [ 605, "#EA0021" ],
-      [ 622, "#7A0022" ],
+      [ 380, "#27005B" ], // Violet
+      [ 449, "#2A007B" ], // Violet-bleu
+      [ 466, "#002F83" ], // Bleu-violet
+      [ 478, "#004769" ], // Bleu
+      [ 483, "#005162" ], // Bleu-vert
+      [ 490, "#00725F" ], // Vert-bleu
+      [ 510, "#00AF6C" ], // Vert
+      [ 541, "#59C000" ], // Vert-jaune
+      [ 573, "#CAB300" ], // Jaune-vert
+      [ 575, "#D2A900" ], // Jaune
+      [ 579, "#D79300" ], // Jaune-orangé
+      [ 584, "#DE8400" ], // Orangé-jaune
+      [ 588, "#E77700" ], // Orangé
+      [ 593, "#F55000" ], // Orangé-rouge
+      [ 605, "#EA0021" ], // Rouge-orangé
+      [ 622, "#7A0022" ], // Rouge
       [ 780, "#000000" ]
     ];
 
+    const longMin = 0;
     const longMax = 780;
 
     // Line plot data creation
@@ -91,10 +92,15 @@
     const heatmapEnd = spectrumXMax;
 
     for (let i = heatmapStart; i < heatmapEnd; i++) {
-      zTemp.push(i);
       heatmapX.push(i);
+      if (i <= longMin) zTemp.push(longMin);
+      else if (i >= longMax) zTemp.push(longMax);
+      else zTemp.push(i);
     }
-    zTemp[0] = 0; // To
+
+    zTemp[0] = longMin; // To
+    zTemp[zTemp.length - 1] = longMax; // To
+
     const heatmapZ: number[][] = [ zTemp ];
 
     const heatmap: Plotly.Data = {
@@ -108,7 +114,7 @@
     };
 
     // Draw plot
-    Plotly.plot("spectrum_plot", [ heatmap, linePlot ], {
+    Plotly.plot("spectrum_plot_" + this.id, [ heatmap, linePlot ], {
           xaxis: {
             title: {
               text: "" + this.$t("spectrum.xAxis_title")
