@@ -62,17 +62,9 @@
     import { Component, Vue } from "vue-property-decorator";
     import { HttpMethod, query } from "@/services/ChromelyService";
     import { HOME_PATH } from "@/routes";
+    import ErrorNotification from "@/common/ErrorNotification";
 
     type Device = string;
-
-    /**
-     * Error notification data
-     */
-    interface ErrorNotification {
-      status: boolean;
-      label?: string;
-      parameters?: { [key: string]: string };
-    }
 
     /**
      * Data hold by startup component

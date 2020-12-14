@@ -1,0 +1,16 @@
+{
+    "en": {
+        "home_content_toolbar": {
+            "analysis_button": "Analyze",
+            "analysis_start_error": "Failed to start analysis",
+            "analysis_error": "Error occurred during analysis"
+        }
+    },
+    "fr": {
+        "home_content_toolbar": {
+            "analysis_button": "Analyser",
+            "analysis_start_error": "Impossible de lancer l'analyse",
+            "analysis_error": "Une erreur est survenue durant l'analyse"
+        }
+    }
+}

@@ -1,7 +1,9 @@
 using System;
 
 namespace Monochromator.App.Services.Mbed {
-    // TODO: Doc
+    /// <summary>
+    /// Exception thrown when <see cref="MbedService"/> can't detect a monochromator controller
+    /// </summary>
     public class ControllerDetectionException : Exception {
         /// <summary>
         /// Constructor

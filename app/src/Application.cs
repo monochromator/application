@@ -3,7 +3,6 @@ using Chromely;
 using Chromely.Core;
 using Chromely.Core.Network;
 using Monochromator.App.Controllers;
-using Monochromator.App.Handlers;
 
 namespace Monochromator.App {
     /// <summary>
@@ -15,9 +14,7 @@ namespace Monochromator.App {
 
             // Register controllers
             container.RegisterSingleton<ChromelyController, MbedController>(Guid.NewGuid().ToString());
-            
-            // Register handlers
-            container.RegisterSingleton<IChromelyCustomHandler, PageLoadingHandler>(Guid.NewGuid().ToString());
+            container.RegisterSingleton<ChromelyController, AnalysisController>(Guid.NewGuid().ToString());
         }
     }
 }

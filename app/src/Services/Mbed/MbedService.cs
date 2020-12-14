@@ -5,15 +5,24 @@ using Monochromator.App.Mbed;
 using NLog;
 
 namespace Monochromator.App.Services.Mbed {
-    // TODO: Doc
+    /// <summary>
+    /// Service for MBED
+    /// </summary>
     public class MbedService {
         private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();
         private const uint PingResponse = 1234567;
 
-        // TODO: Doc
+        /// <summary>
+        /// Get connected devices' names
+        /// </summary>
+        /// <returns>Devices</returns>
         public string[] Controllers() => SerialPort.GetPortNames();
 
-        // TODO: Doc
+        /// <summary>
+        /// Autodetect monochromator controller in connected devices
+        /// </summary>
+        /// <returns>Controller's device name</returns>
+        /// <exception cref="ControllerDetectionException"></exception>
         public string Autodetect() {
             // Get connected controllers
             var controllers = Controllers();
@@ -21,7 +30,7 @@ namespace Monochromator.App.Services.Mbed {
             foreach (var controller in controllers) {
                 try {
                     // Open connection
-                    using var conn = new SerialConnection(controller, 1000); 
+                    using var conn = new SerialConnection(controller, 1000);
                     conn.Open();
 
                     // Check connection
@@ -37,26 +46,35 @@ namespace Monochromator.App.Services.Mbed {
             throw new ControllerDetectionException(controllers);
         }
 
-        // TODO: Doc
+        /// <summary>
+        /// Try to connect to the given device
+        /// </summary>
+        /// <param name="request">Connection request</param>
+        /// <returns>Connection</returns>
         public SerialConnection Connect(ChromelyRequest request) {
             // Check parameters
             if (!request.Parameters.ContainsKey("device")) {
                 throw new ArgumentException("device isn't specified");
             }
-            
+
             // Open connection
-            var conn = new SerialConnection(request.Parameters["device"]);
+            var device = request.Parameters["device"];
+            var conn = new SerialConnection(device);
             conn.Open();
 
             // Check connection
             if (!IsMonochromator(conn)) {
-                throw new Exception(); // TODO: Change
+                throw new Exception($"{device} isn't a monochromator controller");
             }
 
             return conn;
         }
 
-        // TODO: Doc
+        /// <summary>
+        /// Test whether the given connection is a link with monochromator controller
+        /// </summary>
+        /// <param name="connection">Connection</param>
+        /// <returns>true if connection is a link with monochromator controller, false otherwise</returns>
         private static bool IsMonochromator(SerialConnection connection) {
             // Ping controller
             connection.Send((uint) PacketHeader.Ping);

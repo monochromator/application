@@ -2,62 +2,25 @@
   <div>
     <md-app md-waterfall md-mode="fixed" id="home-app">
       <md-app-toolbar class="md-primary">
-        <ToolBar :device="device" :parent="this"></ToolBar>
+        <ToolBar :device="$data.device"></ToolBar>
       </md-app-toolbar>
 
-      <md-app-drawer :md-active.sync="$data.menuVisible">
-        <!-- TODO REFACTOR (Extract in a component) -->
-        <md-toolbar class="md-transparent" md-elevation="0">
-          Navigation
-        </md-toolbar>
-
-        <md-list>
-          <md-list-item>
-            <md-icon>move_to_inbox</md-icon>
-            <span class="md-list-item-text">Inbox</span>
-          </md-list-item>
-
-          <md-list-item>
-            <md-icon>send</md-icon>
-            <span class="md-list-item-text">Sent Mail</span>
-          </md-list-item>
-
-          <md-list-item>
-            <md-icon>delete</md-icon>
-            <span class="md-list-item-text">Trash</span>
-          </md-list-item>
-
-          <md-list-item>
-            <md-icon>error</md-icon>
-            <span class="md-list-item-text">Spam</span>
-          </md-list-item>
-        </md-list>
-      </md-app-drawer>
-
       <md-app-content>
-        <!-- TODO REFACTOR (Extract in a component) -->
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error quibusdam, non molestias et! Earum magnam, similique, quo recusandae placeat dicta asperiores modi sint ea repudiandae maxime? Quae non explicabo, neque.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error quibusdam, non molestias et! Earum magnam, similique, quo recusandae placeat dicta asperiores modi sint ea repudiandae maxime? Quae non explicabo, neque.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error quibusdam, non molestias et! Earum magnam, similique, quo recusandae placeat dicta asperiores modi sint ea repudiandae maxime? Quae non explicabo, neque.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error quibusdam, non molestias et! Earum magnam, similique, quo recusandae placeat dicta asperiores modi sint ea repudiandae maxime? Quae non explicabo, neque.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error quibusdam, non molestias et! Earum magnam, similique, quo recusandae placeat dicta asperiores modi sint ea repudiandae maxime? Quae non explicabo, neque.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error quibusdam, non molestias et! Earum magnam, similique, quo recusandae placeat dicta asperiores modi sint ea repudiandae maxime? Quae non explicabo, neque.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error quibusdam, non molestias et! Earum magnam, similique, quo recusandae placeat dicta asperiores modi sint ea repudiandae maxime? Quae non explicabo, neque.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error quibusdam, non molestias et! Earum magnam, similique, quo recusandae placeat dicta asperiores modi sint ea repudiandae maxime? Quae non explicabo, neque.</p>
+        <Content/>
       </md-app-content>
     </md-app>
   </div>
 </template>
 
 <script lang="ts">
-    import { Component, Vue, Prop } from "vue-property-decorator";
+    import { Component, Vue } from "vue-property-decorator";
     import ToolBar from "@/components/Home.components/ToolBar.vue";
+    import Content from "@/components/Home.components/Content.vue";
 
     /**
      * Data hold by home component
      */
     interface HomeData {
-      menuVisible: boolean;
       device: string;
     }
 
@@ -65,21 +28,13 @@
      * Main component
      */
     @Component({
-      components: { ToolBar }
+      components: { Content, ToolBar }
     })
     export default class Home extends Vue {
         data(): HomeData {
             return {
-                menuVisible: false,
                 device: this.$route.query.device + ""
             };
-        }
-
-        /**
-         * Toggle menu
-         */
-        toggleMenu() {
-            this.$data.menuVisible = !this.$data.menuVisible;
         }
     }
 </script>
