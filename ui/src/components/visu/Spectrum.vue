@@ -18,13 +18,14 @@
 <script lang="ts">
     import { Component, Vue, Prop } from "vue-property-decorator";
     import * as Plotly from "plotly.js";
+    import { v4 as uuidv4 } from "uuid";
 
 @Component
     export default class Spectrum extends Vue {
   @Prop({ required: true })
   public spectrumData!: [number, number][];
 
-  private id = Math.random()
+  private id = uuidv4();
 
   mounted() {
     const visibleColorSepctrum: [number, string][] = [
