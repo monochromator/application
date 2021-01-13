@@ -1,5 +1,6 @@
 using System;
 using System.IO.Ports;
+using Chromely.Core;
 using Chromely.Core.Network;
 using Monochromator.App.Mbed;
 using NLog;
@@ -11,6 +12,16 @@ namespace Monochromator.App.Services.Mbed {
     public class MbedService {
         private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();
         private const uint PingResponse = 1234567;
+        
+        private readonly IChromelyContainer _container;
+        
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="container">Container</param>
+        public MbedService(IChromelyContainer container) {
+            _container = container;
+        }
 
         /// <summary>
         /// Get connected devices' names
@@ -84,6 +95,19 @@ namespace Monochromator.App.Services.Mbed {
             var response = BitConverter.ToUInt32(responseAsBytes);
 
             return response == PingResponse;
+        }
+        
+        /// <summary>
+        /// Ping connected controller and throw an exception if unable to ping it
+        /// </summary>
+        public void Ping() {
+            // Get controller
+            var controller = _container.GetInstance<SerialConnection>(typeof(SerialConnection).FullName) ??
+                             throw new Exception("No controller connected");
+
+            if (!IsMonochromator(controller)) {
+                throw new Exception("Unable to ping connected device");
+            }
         }
     }
 }
