@@ -24,6 +24,6 @@
     @Component
     export default class ToolBar extends Vue {
       @Prop({ required: true })
-      public device?: string;
+      public device: string;
     }
 </script>

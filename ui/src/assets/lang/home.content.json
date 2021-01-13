@@ -1,0 +1,14 @@
+{
+    "en": {
+        "home_content": {
+            "empty_graphs_title": "No analysis",
+            "empty_graphs_description": "There is no analysis to display, please open one or launch an analysis"
+        }
+    },
+    "fr": {
+        "home_content": {
+            "empty_graphs_title": "Aucune analyse",
+            "empty_graphs_description": "Il n'y a pas d'analyses à afficher, veuillez en ouvrir une ou en lancer une"
+        }
+    }
+}
