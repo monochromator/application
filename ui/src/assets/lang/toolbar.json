@@ -1,0 +1,14 @@
+{
+    "en": {
+        "toolbar": {
+            "device_connected": "connected",
+            "device_disconnected": "disconnected"
+        }
+    },
+    "fr": {
+        "toolbar": {
+            "device_connected": "connecté",
+            "device_disconnected": "déconnecté"
+        }
+    }
+}
