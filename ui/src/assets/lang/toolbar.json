@@ -1,0 +1,20 @@
+{
+    "en": {
+        "toolbar": {
+            "title": "Monochromator",
+            "lang": {
+                "fr": "French",
+                "en": "English"
+            }
+        }
+    },
+    "fr": {
+        "toolbar": {
+            "title": "Monochromateur",
+            "lang": {
+                "fr": "Français",
+                "en": "Anglais"
+            }
+        }
+    }
+}
