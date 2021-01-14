@@ -2,7 +2,7 @@
     "en": {
         "toolbar": {
             "device_connected": "connected",
-            "device_disconnected": "disconnected"
+            "device_disconnected": "disconnected",
             "title": "Monochromator",
             "lang": {
                 "fr": "French",
@@ -13,7 +13,7 @@
     "fr": {
         "toolbar": {
             "device_connected": "connecté",
-            "device_disconnected": "déconnecté"
+            "device_disconnected": "déconnecté",
             "title": "Monochromateur",
             "lang": {
                 "fr": "Français",
