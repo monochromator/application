@@ -15,6 +15,7 @@
         "@types/vue-material": "git+https://github.com/calebsander/vue-material-types.git",
         "@types/vue-router": "^2.0.0",
         "core-js": "^3.6.5",
+        "moment": "^2.29.1",
         "plotly.js": "^1.58.2",
         "uuid": "^8.3.2",
         "vue": "^2.6.11",

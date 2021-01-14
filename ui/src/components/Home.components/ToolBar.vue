@@ -47,16 +47,16 @@
      */
     @Component
     export default class ToolBar extends Vue {
-        @Prop({ required: true })
-        public device?: string;
+      @Prop({ required: true })
+      public device: string;
 
-        /**
-         * Change application language
-         *
-         * @param lang New language
-         */
-        changeLang(lang: SupportedLanguages) {
-          this.$root.$i18n.locale = lang;
-        }
+      /**
+       * Change application language
+       *
+       * @param lang New language
+       */
+      changeLang(lang: SupportedLanguages) {
+        this.$root.$i18n.locale = lang;
+      }
     }
 </script>
