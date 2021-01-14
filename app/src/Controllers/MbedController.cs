@@ -12,7 +12,7 @@ namespace Monochromator.App.Controllers {
     public class MbedController : ChromelyController {
         private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();
 
-        private readonly MbedService _mbedService = new MbedService();
+        private readonly MbedService _mbedService;
         private readonly IChromelyContainer _container;
 
         /// <summary>
@@ -21,6 +21,7 @@ namespace Monochromator.App.Controllers {
         /// <param name="container"></param>
         public MbedController(IChromelyContainer container) {
             _container = container;
+            _mbedService = new MbedService(_container);
         }
 
         /// <summary>
@@ -80,6 +81,23 @@ namespace Monochromator.App.Controllers {
             } catch (Exception e) {
                 Logger.Error(e);
 
+                return new ErrorResponse(e);
+            }
+        }
+
+        /// <summary>
+        /// Ping connected controller
+        /// </summary>
+        /// <param name="request">Request</param>
+        /// <returns>Response</returns>
+        [HttpGet(Route = "/mbed/current/ping")]
+        public ChromelyResponse Ping(ChromelyRequest request) {
+            try {
+                _mbedService.Ping();
+                return new ChromelyResponse();
+            } catch (Exception e) {
+                Logger.Error(e);
+                
                 return new ErrorResponse(e);
             }
         }
