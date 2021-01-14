@@ -75,6 +75,7 @@
         }, () => {
           this.$data.deviceConnected = false;
         });
+      }
 
       /**
        * Change application language
