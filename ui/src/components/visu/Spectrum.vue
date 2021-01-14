@@ -27,6 +27,30 @@
     import { Component, Vue, Prop } from "vue-property-decorator";
     import * as Plotly from "plotly.js";
 
+    const visibleColorSepctrum: [number, string][] = [
+        [ 0, "#000000" ],
+        [ 380, "#27005B" ], // Violet
+        [ 449, "#2A007B" ], // Violet-bleu
+        [ 466, "#002F83" ], // Bleu-violet
+        [ 478, "#004769" ], // Bleu
+        [ 483, "#005162" ], // Bleu-vert
+        [ 490, "#00725F" ], // Vert-bleu
+        [ 510, "#00AF6C" ], // Vert
+        [ 541, "#59C000" ], // Vert-jaune
+        [ 573, "#CAB300" ], // Jaune-vert
+        [ 575, "#D2A900" ], // Jaune
+        [ 579, "#D79300" ], // Jaune-orangé
+        [ 584, "#DE8400" ], // Orangé-jaune
+        [ 588, "#E77700" ], // Orangé
+        [ 593, "#F55000" ], // Orangé-rouge
+        [ 605, "#EA0021" ], // Rouge-orangé
+        [ 622, "#7A0022" ], // Rouge
+        [ 780, "#000000" ]
+    ];
+
+    const longMin = 0;
+    const longMax = 780;
+
 @Component
     export default class Spectrum extends Vue {
   @Prop({ required: true })
@@ -39,30 +63,17 @@
   public removeGraph: () => void;
 
   mounted() {
-    const visibleColorSepctrum: [number, string][] = [
-      [ 0, "#000000" ],
-      [ 380, "#27005B" ], // Violet
-      [ 449, "#2A007B" ], // Violet-bleu
-      [ 466, "#002F83" ], // Bleu-violet
-      [ 478, "#004769" ], // Bleu
-      [ 483, "#005162" ], // Bleu-vert
-      [ 490, "#00725F" ], // Vert-bleu
-      [ 510, "#00AF6C" ], // Vert
-      [ 541, "#59C000" ], // Vert-jaune
-      [ 573, "#CAB300" ], // Jaune-vert
-      [ 575, "#D2A900" ], // Jaune
-      [ 579, "#D79300" ], // Jaune-orangé
-      [ 584, "#DE8400" ], // Orangé-jaune
-      [ 588, "#E77700" ], // Orangé
-      [ 593, "#F55000" ], // Orangé-rouge
-      [ 605, "#EA0021" ], // Rouge-orangé
-      [ 622, "#7A0022" ], // Rouge
-      [ 780, "#000000" ]
-    ];
+    this.drawnPlot();
+  }
 
-    const longMin = 0;
-    const longMax = 780;
+  beforeUpdate() {
+    this.drawnPlot();
+  }
 
+  /**
+   * Draw a plot from the pros spectrumData
+   */
+  drawnPlot() {
     // Line plot data creation
     const lineX: number[] = [];
     const lineY: number[] = [];
@@ -129,7 +140,7 @@
     };
 
     // Draw plot
-    Plotly.plot(
+    Plotly.react(
       "spectrum_plot_" + this.id,
       [ heatmap, linePlot ],
       {
@@ -170,6 +181,7 @@
 <style scoped>
 #spectrum {
   height: 100%;
+  background: red;
 }
 #btnList {
   display: flex;
