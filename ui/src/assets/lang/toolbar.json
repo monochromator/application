@@ -3,12 +3,22 @@
         "toolbar": {
             "device_connected": "connected",
             "device_disconnected": "disconnected"
+            "title": "Monochromator",
+            "lang": {
+                "fr": "French",
+                "en": "English"
+            }
         }
     },
     "fr": {
         "toolbar": {
             "device_connected": "connecté",
             "device_disconnected": "déconnecté"
+            "title": "Monochromateur",
+            "lang": {
+                "fr": "Français",
+                "en": "Anglais"
+            }
         }
     }
 }

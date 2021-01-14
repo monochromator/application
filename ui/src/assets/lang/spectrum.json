@@ -7,6 +7,7 @@
             "line_title": "Results",
             "filter_btn_title": "Filters",
             "save_btn_title": "Save",
+            "close_btn_title": "Close",
             "filter_btn_raw": "Raw data",
             "filter_btn_smooth": "Smooth"
         }
@@ -19,6 +20,7 @@
             "line_title": "Résultats",
             "filter_btn_title": "Filtres",
             "save_btn_title": "Sauvegarder",
+            "close_btn_title": "Fermer",
             "filter_btn_raw": "Données brutes",
             "filter_btn_smooth": "Lissage"
         }

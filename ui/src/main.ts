@@ -7,11 +7,15 @@ import App from "./App.vue";
 import VueRouter from "vue-router";
 import VueI18n from "vue-i18n";
 import { routes } from "./routes";
+import CountryFlag from "vue-country-flag";
 
 Vue.config.productionTip = false;
 
 // Import material components
 Vue.use(VueMaterial);
+
+// Import flag icons
+Vue.use(CountryFlag);
 
 // Router
 Vue.use(VueRouter);
@@ -23,7 +27,7 @@ const router = new VueRouter({
 Vue.use(VueI18n);
 const i18n = new VueI18n({
     messages: translations,
-    locale: "en",
+    locale: "fr",
     fallbackLocale: "en",
     silentFallbackWarn: true
 });

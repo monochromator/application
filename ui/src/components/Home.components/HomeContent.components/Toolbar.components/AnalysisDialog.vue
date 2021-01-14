@@ -24,8 +24,8 @@
       </md-dialog-content>
 
       <md-dialog-actions>
-        <md-button class="md-primary md-raised">{{$t("analysis_dialog.close")}}</md-button>
-        <md-button class="md-primary md-raised" @click="analyse" :disabled="!stepIsValid() || !rangeIsValid()">{{$t("analysis_dialog.run")}}</md-button>
+        <md-button class="md-primary md-raised" @click="closeDialog()">{{$t("analysis_dialog.close")}}</md-button>
+        <md-button class="md-primary md-raised" @click="analyse" :disabled="!stepIsValid() || !rangeIsValid() || $data.analysisRunning">{{$t("analysis_dialog.run")}}</md-button>
         <span style="width: 10px" v-if="$data.analysisRunning" />
         <md-progress-spinner md-mode="indeterminate" :md-diameter="30" :md-stroke="5" v-if="$data.analysisRunning"></md-progress-spinner>
       </md-dialog-actions>
@@ -38,7 +38,7 @@
 </template>
 
 <script lang="ts">
-    import { Component, Vue } from "vue-property-decorator";
+    import { Component, Prop, Vue } from "vue-property-decorator";
     import ErrorNotification from "@/common/ErrorNotification";
     import { HttpMethod, query } from "@/services/ChromelyService";
 
@@ -69,6 +69,9 @@
      */
     @Component
     export default class AnalysisDialog extends Vue {
+        @Prop({ required: true })
+        public addAnalysis: (data: [number, number][]) => void;
+
         data(): AnalysisDialogData {
             return {
                 status: false,
@@ -102,7 +105,7 @@
          * @event Event
          */
         onAnalysisResults(event: Event) {
-            // TODO: Create a new graph
+            this.addAnalysis((event as CustomEvent).detail);
             this.closeDialog();
         }
 
@@ -161,9 +164,9 @@
         closeDialog() {
             this.$data.status = false;
             this.$data.analysisRunning = false;
-        }
 
-        // TODO: Implement close with analysis killer
+            // TODO: Implement close with analysis killer
+        }
 
         /**
          * Test whether analysis step is valid
