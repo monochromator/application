@@ -49,7 +49,7 @@
     export default class ToolBar extends Vue {
       @Prop({ required: true })
       public device: string;
-       
+
       /**
        * Change application language
        *
