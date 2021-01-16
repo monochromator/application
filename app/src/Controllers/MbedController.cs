@@ -101,5 +101,24 @@ namespace Monochromator.App.Controllers {
                 return new ErrorResponse(e);
             }
         }
+
+        /// <summary>
+        /// Disconnect connected controller
+        /// </summary>
+        /// <param name="request">Request</param>
+        /// <returns>Response</returns>
+        [HttpGet(Route = "/mbed/current/disconnect")]
+        public ChromelyResponse Disconnect(ChromelyRequest request) {
+            try {
+                // Drop old connection
+                _container.RegisterInstance<SerialConnection?>(typeof(SerialConnection).FullName, null);
+
+                return new ChromelyResponse();
+            } catch (Exception e) {
+                Logger.Error(e);
+
+                return new ErrorResponse(e);
+            }
+        }
     }
 }
