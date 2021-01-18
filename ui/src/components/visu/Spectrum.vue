@@ -24,7 +24,7 @@
 </template>
 
 <script lang="ts">
-    import { Component, Vue, Prop } from "vue-property-decorator";
+    import { Component, Vue, Prop, Watch } from "vue-property-decorator";
     import * as Plotly from "plotly.js";
 
     const visibleColorSepctrum: [number, string][] = [
@@ -62,18 +62,25 @@
   @Prop({ required: true })
   public removeGraph: () => void;
 
-  mounted() {
-    this.drawnPlot();
+  async mounted() {
+    await this.drawnPlot();
   }
 
-  beforeUpdate() {
+  async beforeUpdate() {
+    console.log("Update !!!!");
+    await this.drawnPlot();
+  }
+
+  @Watch("spectrumData")
+  onPropertyChanged() {
+    // Do stuff with the watcher here.
     this.drawnPlot();
   }
 
   /**
    * Draw a plot from the pros spectrumData
    */
-  drawnPlot() {
+  async drawnPlot() {
     // Line plot data creation
     const lineX: number[] = [];
     const lineY: number[] = [];
@@ -140,7 +147,7 @@
     };
 
     // Draw plot
-    Plotly.react(
+    await Plotly.react(
       "spectrum_plot_" + this.id,
       [ heatmap, linePlot ],
       {
@@ -167,6 +174,8 @@
         responsive: true
       }
     );
+
+    window.dispatchEvent(new Event("resize"));
   }
 
   /**
@@ -181,7 +190,7 @@
 <style scoped>
 #spectrum {
   height: 100%;
-  background: red;
+  min-height: 40vh;
 }
 #btnList {
   display: flex;
