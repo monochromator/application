@@ -10,23 +10,23 @@ namespace Monochromator.App.Services.Analysis {
         /// </summary>
         [JsonPropertyName("name")]
         public string? Name { get; set; }
-        
+
         /// <summary>
         /// Range start
         /// </summary>
         [JsonPropertyName("start")]
-        public float Start { get; set; }
+        public float Start { get; set; } = float.NaN;
 
         /// <summary>
         /// Range end
         /// </summary>
         [JsonPropertyName("end")]
-        public float End { get; set; }
+        public float End { get; set; } = float.NaN;
 
         /// <summary>
         /// Step
         /// </summary>
         [JsonPropertyName("step")]
-        public float Step { get; set; }
+        public float Step { get; set; } = float.NaN;
     }
 }

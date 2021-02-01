@@ -15,6 +15,7 @@ namespace Monochromator.App {
             // Register controllers
             container.RegisterSingleton<ChromelyController, MbedController>(Guid.NewGuid().ToString());
             container.RegisterSingleton<ChromelyController, AnalysisController>(Guid.NewGuid().ToString());
+            container.RegisterSingleton<ChromelyController, CalibrationController>(Guid.NewGuid().ToString());
         }
     }
 }
