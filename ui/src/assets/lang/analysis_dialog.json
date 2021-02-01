@@ -10,6 +10,10 @@
             "range_end_error": "End should be greater or equal to start",
             "range_step_label": "Step",
             "range_step_error": "Step should be greater than 0",
+            "presets": {
+                "section_name": "Presets",
+                "visible": "Visible spectrum"
+            },
             "name_label": "Name (Optional)",
             "name_error": "Name shouldn't exceed {max} characters"
         }
@@ -25,6 +29,10 @@
             "range_end_error": "Fin doit être supérieur ou égal à Début",
             "range_step_label": "Pas",
             "range_step_error": "Pas doit être supérieur à 0",
+            "presets": {
+                "section_name": "Préréglages",
+                "visible": "Spectre visible"
+            },
             "name_label": "Nom (Optionnel)",
             "name_error": "Nom ne doit pas dépasser {max} caractères"
         }
