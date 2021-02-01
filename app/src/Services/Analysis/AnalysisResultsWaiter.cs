@@ -53,11 +53,12 @@ namespace Monochromator.App.Services.Analysis {
             switch (response) {
                 case AnalysisPacketHeader.InvalidArguments:
                 case AnalysisPacketHeader.Start:
+                case AnalysisPacketHeader.NotCalibrated:
                     throw new InvalidOperationException($"Invalid header received: {response}");
 
                 case AnalysisPacketHeader.ResultsSize:
                     break;
-
+                
                 default:
                     throw new UnknownEnumValueException<AnalysisPacketHeader>(response);
             }

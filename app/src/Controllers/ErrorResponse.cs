@@ -10,8 +10,9 @@ namespace Monochromator.App.Controllers {
         /// Constructor
         /// </summary>
         /// <param name="e">Exception</param>
-        public ErrorResponse(Exception e) {
-            StatusText = "KO";
+        /// <param name="text">Status text</param>
+        public ErrorResponse(Exception e, string? text = null) {
+            StatusText = text ?? "KO";
             Data = e.Message;
             Status = 503;
         }

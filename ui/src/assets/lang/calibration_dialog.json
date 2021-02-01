@@ -1,0 +1,22 @@
+{
+    "en": {
+        "calibration_dialog": {
+            "title": "Calibration",
+            "run": "Run",
+            "close": "Close",
+            "wavelength_name": "Wavelength",
+            "wavelength_error": "Wavelength should be greater than 0",
+            "calibration_error": "Error occurred during calibration"
+        }
+    },
+    "fr": {
+        "calibration_dialog": {
+            "title": "Calibration",
+            "run": "Lancer",
+            "close": "Fermer",
+            "wavelength_name": "Longueur d'onde",
+            "wavelength_error": "La longueur d'onde doit être supérieure à 0",
+            "calibration_error": "Une erreur est survenue durant la calibration"
+        }
+    }
+}

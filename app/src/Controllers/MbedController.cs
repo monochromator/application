@@ -11,9 +11,9 @@ namespace Monochromator.App.Controllers {
     /// </summary>
     public class MbedController : ChromelyController {
         private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();
+        private readonly IChromelyContainer _container;
 
         private readonly MbedService _mbedService;
-        private readonly IChromelyContainer _container;
 
         /// <summary>
         /// Constructor
@@ -110,8 +110,8 @@ namespace Monochromator.App.Controllers {
         [HttpGet(Route = "/mbed/current/disconnect")]
         public ChromelyResponse Disconnect(ChromelyRequest request) {
             try {
-                // Drop old connection
-                _container.RegisterInstance<SerialConnection?>(typeof(SerialConnection).FullName, null);
+                // Discard old connection
+                _container.GetInstance<SerialConnection>(typeof(SerialConnection).FullName)?.Dispose();
 
                 return new ChromelyResponse();
             } catch (Exception e) {
