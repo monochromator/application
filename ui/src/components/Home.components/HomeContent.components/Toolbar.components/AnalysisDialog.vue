@@ -4,6 +4,13 @@
       <md-dialog-title>{{$t("analysis_dialog.title")}}</md-dialog-title>
 
       <md-dialog-content md-dynamic-height>
+        <div style="margin-bottom: 10px">
+          <div class="md-subheading" style="margin-bottom: 10px">{{$t("analysis_dialog.presets.section_name")}}</div>
+
+          <md-chip v-for="preset in this.presets" :md-clickable="true" :key="preset.name" @click="applyPreset(preset)">{{$t("analysis_dialog.presets." + preset.name)}}</md-chip>
+        </div>
+        <md-divider></md-divider>
+
         <md-field :class="rangeIsValid() ? '' : 'md-invalid'">
           <label>{{$t("analysis_dialog.range_start_label")}}</label>
           <md-input v-model="$data.form.start" type="number"></md-input>
@@ -61,8 +68,24 @@
       form: AnalysisForm;
     }
 
+    /**
+     * Analysis preset
+     */
+    interface Preset {
+      name: string;
+      start: number;
+      end: number;
+    }
+
     const ANALYSIS_RESULTS_EVENT = "analysis.end";
     const ANALYSIS_ERROR_EVENT = "analysis.error";
+    const ANALYSIS_PRESETS: Preset[] = [
+        {
+            name: "visible",
+            start: 380,
+            end: 750
+        }
+    ];
 
     /**
      * Main component
@@ -71,6 +94,9 @@
     export default class AnalysisDialog extends Vue {
         @Prop({ required: true })
         public addAnalysis: (data: [number, number][]) => void;
+
+        @Prop({ required: true })
+        public presets: Preset[] = ANALYSIS_PRESETS;
 
         data(): AnalysisDialogData {
             return {
@@ -180,6 +206,16 @@
          */
         rangeIsValid() {
             return this.$data.form.start <= this.$data.form.end;
+        }
+
+        /**
+         * Apply the given preset
+         *
+         * @param preset Preset to apply
+         */
+        applyPreset(preset: Preset) {
+            this.$data.form.start = preset.start;
+            this.$data.form.end = preset.end;
         }
     }
 </script>
