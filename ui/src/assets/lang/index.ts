@@ -8,7 +8,8 @@ import analysisDialog from "./analysis_dialog.json";
 import spectrum from "./spectrum.json";
 import homeContent from "./home.content.json";
 import toolbar from "./toolbar.json";
+import common from "./common.json";
 
 // DO NOT FORGET TO ADD YOUR NEW LANGUAGE FILE TO MERGE PARAMETERS
 
-export default merge.all([ languages, startup, spectrum, homeContentToolBar, analysisDialog, homeContent, toolbar ]) as LocaleMessages;
+export default merge.all([ languages, startup, spectrum, homeContentToolBar, analysisDialog, homeContent, toolbar, common ]) as LocaleMessages;

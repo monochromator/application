@@ -22,7 +22,7 @@
     })
     export default class ToolBar extends Vue {
         @Prop({ required: true })
-        public addAnalysis: (data: [number, number][]) => void;
+        public addAnalysis: (data: [number, number][], name?: string) => void;
 
         /**
          * Show analysis dialog
