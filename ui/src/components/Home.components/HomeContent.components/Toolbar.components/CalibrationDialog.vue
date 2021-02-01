@@ -114,7 +114,10 @@
 
             query({
                 method: HttpMethod.Post,
-                url: "/calibration/run"
+                url: "/calibration/run",
+                postData: {
+                    wavelength: parseFloat(this.$data.form.wavelength)
+                }
             }, () => {
                 // Do nothing
             }, () => {
