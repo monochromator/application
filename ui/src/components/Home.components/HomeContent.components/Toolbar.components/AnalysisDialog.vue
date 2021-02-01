@@ -86,13 +86,6 @@
 
     const ANALYSIS_RESULTS_EVENT = "analysis.end";
     const ANALYSIS_ERROR_EVENT = "analysis.error";
-    const ANALYSIS_PRESETS: Preset[] = [
-        {
-            name: "visible",
-            start: 380,
-            end: 750
-        }
-    ];
 
     /**
      * Main component
@@ -102,10 +95,14 @@
         @Prop({ required: true })
         public addAnalysis: (data: [number, number][], name?: string) => void;
 
-        public nameLimit = 30;
-
-        @Prop({ required: true })
-        public presets: Preset[] = ANALYSIS_PRESETS;
+        private nameLimit = 30;
+        private presets: Preset[] = [
+          {
+            name: "visible",
+            start: 380,
+            end: 750
+          }
+        ];
 
         data(): AnalysisDialogData {
             return {
