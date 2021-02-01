@@ -6,6 +6,12 @@ namespace Monochromator.App.Services.Analysis {
     /// </summary>
     public class AnalysisArguments {
         /// <summary>
+        /// Name
+        /// </summary>
+        [JsonPropertyName("name")]
+        public string? Name { get; set; }
+        
+        /// <summary>
         /// Range start
         /// </summary>
         [JsonPropertyName("start")]

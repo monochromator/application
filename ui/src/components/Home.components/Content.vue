@@ -59,12 +59,13 @@
          * Add a new analysis
          *
          * @param data Analysis' data
+         * @param name Analysis' name
          */
-        addAnalysis(data: [number, number][]) {
+        addAnalysis(data: [number, number][], name?: string) {
             // Add analysis
             const id = uuidv4();
             this.$data.analyses.push([ {
-                name: moment().format(TIME_FORMAT),
+                name: name === undefined ? moment().format(TIME_FORMAT) : `${name} (${moment().format(TIME_FORMAT)})`,
                 id: id
             }, data ]);
 
