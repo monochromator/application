@@ -13,7 +13,7 @@
 
     <!-- Dependencies -->
     <ItemGroup>
-        <PackageReference Include="Chromely" Version="5.0.83" />
+        <PackageReference Include="Chromely" Version="5.1.86" />
         <PackageReference Include="NLog" Version="4.7.5" />
         <PackageReference Include="System.IO.Ports" Version="4.7.0" />
     </ItemGroup>

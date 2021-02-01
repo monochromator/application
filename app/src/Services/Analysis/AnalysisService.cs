@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Chromely.Core;
 using Chromely.Core.Configuration;
 using Chromely.Core.Network;
+using Microsoft.Extensions.DependencyInjection;
 using Monochromator.App.Exceptions;
 using Monochromator.App.Mbed;
 using Monochromator.App.Services.Mbed;
@@ -21,15 +22,12 @@ namespace Monochromator.App.Services.Analysis {
         private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();
 
         private readonly IChromelyConfiguration _configuration;
-        private readonly IChromelyContainer _container;
 
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="container">Container</param>
         /// <param name="configuration">Configuration</param>
-        public AnalysisService(IChromelyContainer container, IChromelyConfiguration configuration) {
-            _container = container;
+        public AnalysisService(IChromelyConfiguration configuration) {
             _configuration = configuration;
         }
 
@@ -38,13 +36,12 @@ namespace Monochromator.App.Services.Analysis {
         /// </summary>
         /// <param name="request">Analysis request</param>
         /// <returns>Analysis cancellation token</returns>
-        public CancellationTokenSource Analyse(ChromelyRequest request) {
+        public CancellationTokenSource Analyse(IChromelyRequest request) {
             // Parse arguments
             var arguments = ParseAnalysisRequest(request);
 
             // Get controller
-            var controller = _container.GetInstance<SerialConnection>(typeof(SerialConnection).FullName) ??
-                             throw new Exception("No controller connected");
+            var controller = MbedService.Connection ?? throw new Exception("No controller connected");
 
             // Send arguments
             controller.Send((uint) PacketHeader.Analysis);
@@ -95,7 +92,7 @@ namespace Monochromator.App.Services.Analysis {
         /// </summary>
         /// <param name="request">Request</param>
         /// <returns>Arguments</returns>
-        private static AnalysisArguments ParseAnalysisRequest(ChromelyRequest request) {
+        private static AnalysisArguments ParseAnalysisRequest(IChromelyRequest request) {
             // Parse postData
             var arguments = JsonSerializer.Deserialize<AnalysisArguments>(request.PostData?.ToString() ?? "{}");
 

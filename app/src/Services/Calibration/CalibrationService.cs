@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Chromely.Core;
 using Chromely.Core.Configuration;
 using Chromely.Core.Network;
+using Microsoft.Extensions.DependencyInjection;
 using Monochromator.App.Exceptions;
 using Monochromator.App.Mbed;
 using Monochromator.App.Services.Mbed;
@@ -18,15 +19,12 @@ namespace Monochromator.App.Services.Calibration {
         private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();
 
         private readonly IChromelyConfiguration _configuration;
-        private readonly IChromelyContainer _container;
 
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="container">Container</param>
         /// <param name="configuration">Configuration</param>
-        public CalibrationService(IChromelyContainer container, IChromelyConfiguration configuration) {
-            _container = container;
+        public CalibrationService(IChromelyConfiguration configuration) {
             _configuration = configuration;
         }
 
@@ -35,12 +33,11 @@ namespace Monochromator.App.Services.Calibration {
         /// </summary>
         /// <param name="request">Calibration request</param>
         /// <returns>Calibration cancellation token</returns>
-        public CancellationTokenSource Calibrate(ChromelyRequest request) {
+        public CancellationTokenSource Calibrate(IChromelyRequest request) {
             var arguments = ParseCalibrationRequest(request);
 
             // Get controller
-            var controller = _container.GetInstance<SerialConnection>(typeof(SerialConnection).FullName) ??
-                             throw new Exception("No controller connected");
+            var controller = MbedService.Connection ?? throw new Exception("No controller connected");
 
             // Send arguments
             controller.Send((uint) PacketHeader.Calibrate);
@@ -57,7 +54,7 @@ namespace Monochromator.App.Services.Calibration {
 
                 case CalibratePacketHeader.InvalidArguments:
                     throw new Exception($"Invalid calibration arguments (wavelength: {arguments.Wavelength})");
-                
+
                 default:
                     throw new UnknownEnumValueException<CalibratePacketHeader>(response);
             }
@@ -81,13 +78,13 @@ namespace Monochromator.App.Services.Calibration {
 
             return cancelTokenSource;
         }
-        
+
         /// <summary>
         /// Parse calibration arguments in the given request
         /// </summary>
         /// <param name="request">Request</param>
         /// <returns>Arguments</returns>
-        private static CalibrationArguments ParseCalibrationRequest(ChromelyRequest request) {
+        private static CalibrationArguments ParseCalibrationRequest(IChromelyRequest request) {
             // Parse postData
             var arguments = JsonSerializer.Deserialize<CalibrationArguments>(request.PostData?.ToString() ?? "{}");
 

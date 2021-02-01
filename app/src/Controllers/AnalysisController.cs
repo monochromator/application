@@ -2,6 +2,7 @@ using System;
 using Chromely.Core;
 using Chromely.Core.Configuration;
 using Chromely.Core.Network;
+using Microsoft.Extensions.DependencyInjection;
 using Monochromator.App.Exceptions;
 using Monochromator.App.Services.Analysis;
 using NLog;
@@ -18,10 +19,9 @@ namespace Monochromator.App.Controllers {
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="container">Container</param>
         /// <param name="configuration">Configuration</param>
-        public AnalysisController(IChromelyContainer container, IChromelyConfiguration configuration) {
-            _service = new AnalysisService(container, configuration);
+        public AnalysisController(IChromelyConfiguration configuration) {
+            _service = new AnalysisService(configuration);
         }
 
         /// <summary>
@@ -29,8 +29,8 @@ namespace Monochromator.App.Controllers {
         /// </summary>
         /// <param name="request">Request</param>
         /// <returns>Response</returns>
-        [HttpPost(Route = "/analysis/run")]
-        public ChromelyResponse Run(ChromelyRequest request) {
+        [RequestAction(RouteKey = "/analysis/run")]
+        public IChromelyResponse Run(IChromelyRequest request) {
             try {
                 // Run analysis
                 _service.Analyse(request);

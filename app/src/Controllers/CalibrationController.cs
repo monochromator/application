@@ -2,6 +2,7 @@ using System;
 using Chromely.Core;
 using Chromely.Core.Configuration;
 using Chromely.Core.Network;
+using Microsoft.Extensions.DependencyInjection;
 using Monochromator.App.Services.Calibration;
 using NLog;
 
@@ -17,10 +18,9 @@ namespace Monochromator.App.Controllers {
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="container">Container</param>
         /// <param name="configuration">Configuration</param>
-        public CalibrationController(IChromelyContainer container, IChromelyConfiguration configuration) {
-            _service = new CalibrationService(container, configuration);
+        public CalibrationController(IChromelyConfiguration configuration) {
+            _service = new CalibrationService(configuration);
         }
 
         /// <summary>
@@ -28,8 +28,8 @@ namespace Monochromator.App.Controllers {
         /// </summary>
         /// <param name="request">Request</param>
         /// <returns>Response</returns>
-        [HttpPost(Route = "/calibration/run")]
-        public ChromelyResponse Run(ChromelyRequest request) {
+        [RequestAction(RouteKey = "/calibration/run")]
+        public IChromelyResponse Run(IChromelyRequest request) {
             try {
                 // Run analysis
                 _service.Calibrate(request);

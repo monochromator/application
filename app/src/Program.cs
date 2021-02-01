@@ -19,7 +19,7 @@ namespace Monochromator.App {
             AppBuilder
                 .Create()
                 .UseApp<Application>()
-                .UseConfiguration<IChromelyConfiguration>(Configuration.Create())
+                .UseConfig<IChromelyConfiguration>(Configuration.Create())
                 .Build()
                 .Run(args);
         }

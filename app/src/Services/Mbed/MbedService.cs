@@ -2,6 +2,7 @@ using System;
 using System.IO.Ports;
 using Chromely.Core;
 using Chromely.Core.Network;
+using Microsoft.Extensions.DependencyInjection;
 using Monochromator.App.Exceptions;
 using Monochromator.App.Mbed;
 using NLog;
@@ -13,16 +14,7 @@ namespace Monochromator.App.Services.Mbed {
     public class MbedService {
         private const uint PingResponse = 1234567;
         private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();
-
-        private readonly IChromelyContainer _container;
-
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="container">Container</param>
-        public MbedService(IChromelyContainer container) {
-            _container = container;
-        }
+        public static SerialConnection? Connection = null;
 
         /// <summary>
         /// Get connected devices' names
@@ -63,7 +55,7 @@ namespace Monochromator.App.Services.Mbed {
         /// </summary>
         /// <param name="request">Connection request</param>
         /// <returns>Connection</returns>
-        public SerialConnection Connect(ChromelyRequest request) {
+        public SerialConnection Connect(IChromelyRequest request) {
             // Check parameters
             if (!request.Parameters.ContainsKey("device")) {
                 throw new ArgumentException("device isn't specified");
@@ -103,8 +95,7 @@ namespace Monochromator.App.Services.Mbed {
         /// </summary>
         public void Ping() {
             // Get controller
-            var controller = _container.GetInstance<SerialConnection>(typeof(SerialConnection).FullName) ??
-                             throw new Exception("No controller connected");
+            var controller = Connection ?? throw new Exception("No controller connected");
 
             if (!IsMonochromator(controller)) {
                 throw new Exception("Unable to ping connected device");
