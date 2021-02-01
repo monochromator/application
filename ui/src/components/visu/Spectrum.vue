@@ -63,24 +63,58 @@
   public removeGraph: () => void;
 
   async mounted() {
-    await this.drawnPlot();
+    this.initPlot();
+    this.updatePlot();
+    this.updateAxis();
   }
 
-  async beforeUpdate() {
-    console.log("Update !!!!");
-    await this.drawnPlot();
+  async beforeUpdate() { this.updateAxis(); }
+
+  async initPlot() {
+    const layout: Partial<Plotly.Layout> = {
+      xaxis: {
+        title: {
+          text: "" + this.$t("spectrum.xAxis_title")
+        }
+      },
+      yaxis: {
+        title: {
+          // Todo : look for the axis unit
+          text: "" + this.$t("spectrum.yAxis_title")
+        }
+      },
+      margin: {
+        l: 50,
+        r: 20,
+        b: 50,
+        t: 0
+      }
+    };
+
+    const linePlot: Plotly.Data = {
+    };
+    const heatmap: Plotly.Data = {
+    };
+
+    // Draw plot
+    await Plotly.react("spectrum_plot_" + this.id, [ linePlot, heatmap ], layout, {
+      displayModeBar: false,
+      responsive: true
+    });
+    window.dispatchEvent(new Event("resize"));
   }
 
   @Watch("spectrumData")
   onPropertyChanged() {
-    // Do stuff with the watcher here.
-    this.drawnPlot();
+    // Props have changed, update the plot
+    this.updatePlot();
+    this.updateAxis();
   }
 
   /**
    * Draw a plot from the pros spectrumData
    */
-  async drawnPlot() {
+  updatePlot() {
     // Line plot data creation
     const lineX: number[] = [];
     const lineY: number[] = [];
@@ -95,17 +129,6 @@
 
     const spectrumXMin: number = Math.min(...lineX);
     const spectrumXMax: number = Math.max(...lineX);
-
-    const linePlot: Plotly.Data = {
-      name: "" + this.$t("spectrum.line_title"),
-      mode: "lines",
-      line: {
-        color: "black",
-        shape: "linear"
-      },
-      x: lineX,
-      y: lineY
-    };
 
     // Heatmap data creation
     const colorscale: [number, string][] = visibleColorSepctrum.map((c) => [
@@ -136,46 +159,42 @@
 
     const heatmapZ: number[][] = [ zTemp ];
 
+    const linePlot: Plotly.Data = {
+      name: "" + this.$t("spectrum.line_title"),
+      mode: "lines",
+      line: { color: "black", shape: "linear" },
+      x: lineX,
+      y: lineY
+    };
+
     const heatmap: Plotly.Data = {
       name: "" + this.$t("spectrum.colorscale_title"),
+      showscale: false,
+      type: "heatmap",
       x: heatmapX,
       y: heatmapY,
       z: heatmapZ,
-      colorscale,
-      showscale: false,
-      type: "heatmap"
+      colorscale
     };
 
     // Draw plot
-    await Plotly.react(
-      "spectrum_plot_" + this.id,
-      [ heatmap, linePlot ],
-      {
-        xaxis: {
-          title: {
-            text: "" + this.$t("spectrum.xAxis_title")
-          }
-        },
-        yaxis: {
-          title: {
-            // Todo : look for the axis unit
-            text: "" + this.$t("spectrum.yAxis_title")
-          }
-        },
-        margin: {
-          l: 50,
-          r: 20,
-          b: 50,
-          t: 0
+    Plotly.react("spectrum_plot_" + this.id, [ heatmap, linePlot ]);
+  }
+
+  updateAxis() {
+    const update: Partial<Plotly.Layout> = {
+      xaxis: {
+        title: {
+          text: "" + this.$t("spectrum.xAxis_title")
         }
       },
-      {
-        displayModeBar: false,
-        responsive: true
+      yaxis: {
+        title: {
+          text: "" + this.$t("spectrum.yAxis_title")
+        }
       }
-    );
-
-    window.dispatchEvent(new Event("resize"));
+    };
+    Plotly.relayout("spectrum_plot_" + this.id, update);
   }
 
   /**
