@@ -13,7 +13,9 @@
             "presets": {
                 "section_name": "Presets",
                 "visible": "Visible spectrum"
-            }
+            },
+            "name_label": "Name (Optional)",
+            "name_error": "Name shouldn't exceed {max} characters"
         }
     },
     "fr": {
@@ -30,7 +32,9 @@
             "presets": {
                 "section_name": "Préréglages",
                 "visible": "Spectre visible"
-            }
+            },
+            "name_label": "Nom (Optionnel)",
+            "name_error": "Nom ne doit pas dépasser {max} caractères"
         }
     }
 }

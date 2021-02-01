@@ -1,0 +1,14 @@
+{
+    "en": {
+        "common": {
+            "yes": "yes",
+            "no": "no"
+        }
+    },
+    "fr": {
+        "common": {
+            "yes": "oui",
+            "no": "non"
+        }
+    }
+}

@@ -76,7 +76,7 @@ namespace Monochromator.App.Services.Analysis {
             Task.Run(() => {
                 try {
                     // Send results
-                    SendAnalysisResults(AnalysisResultsWaiter.Wait(controller, cancelTokenSource.Token));
+                    SendAnalysisResults(AnalysisResultsWaiter.Wait(controller, cancelTokenSource.Token), arguments.Name);
                 } catch (OperationCanceledException) {
                     Logger.Info("Analysis results waiter cancelled");
                 } catch (Exception e) {
@@ -119,9 +119,10 @@ namespace Monochromator.App.Services.Analysis {
         /// Send results to UI
         /// </summary>
         /// <param name="results">Results to send</param>
-        private void SendAnalysisResults(IEnumerable<(float, float)> results) {
+        /// <param name="name">Analysis' name</param>
+        private void SendAnalysisResults(IEnumerable<(float, float)> results, string? name) {
             _configuration.JavaScriptExecutor.ExecuteScript(
-                $@"window.dispatchEvent(new CustomEvent('analysis.end', {{ detail: [{ToJson(results)}] }}))");
+                $@"window.dispatchEvent(new CustomEvent('analysis.end', {{ detail: {{ data: [{ToJson(results)}], name: {(name is null ? "undefined" : $"\"{name}\"")} }} }}))");
         }
 
         /// <summary>

@@ -1,6 +1,7 @@
 import Vue from "vue";
 import "vue-material/dist/theme/default.css";
 import "vue-material/dist/vue-material.min.css";
+import "@/assets/style/material.css";
 import VueMaterial from "vue-material";
 import translations from "./assets/lang";
 import App from "./App.vue";

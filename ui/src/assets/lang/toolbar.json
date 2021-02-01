@@ -3,10 +3,14 @@
         "toolbar": {
             "device_connected": "connected",
             "device_disconnected": "disconnected",
-            "title": "Monochromator",
             "lang": {
                 "fr": "French",
                 "en": "English"
+            },
+            "disconnect_error": "Failed to disconnect connected controller",
+            "confirm_quit_dialog": {
+                "title": "Do you really want to quit ?",
+                "text": "All analysis run and not saved will be <strong>lost</strong>. Please save your work before exiting this screen."
             }
         }
     },
@@ -14,10 +18,14 @@
         "toolbar": {
             "device_connected": "connecté",
             "device_disconnected": "déconnecté",
-            "title": "Monochromateur",
             "lang": {
                 "fr": "Français",
                 "en": "Anglais"
+            },
+            "disconnect_error": "Impossible de déconnecter le contrôleur",
+            "confirm_quit_dialog": {
+                "title": "Voulez-vous vraiment quitter ?",
+                "text": "Toutes les analyses non sauvegardées seront <strong>perdues</strong>. Veuillez sauvegarder votre travail avant de quitter cet écran."
             }
         }
     }
