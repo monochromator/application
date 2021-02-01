@@ -91,13 +91,8 @@
       }
     };
 
-    const linePlot: Plotly.Data = {
-    };
-    const heatmap: Plotly.Data = {
-    };
-
     // Draw plot
-    await Plotly.react("spectrum_plot_" + this.id, [ linePlot, heatmap ], layout, {
+    await Plotly.react("spectrum_plot_" + this.id, [], layout, {
       displayModeBar: false,
       responsive: true
     });
