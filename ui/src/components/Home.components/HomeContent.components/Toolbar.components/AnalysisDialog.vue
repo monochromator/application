@@ -191,7 +191,15 @@
          * Test whether analysis range is valid
          */
         rangeIsValid() {
-            return this.$data.form.start <= this.$data.form.end;
+            const startAsNumber = parseFloat(this.$data.form.start);
+            const endAsNumber = parseFloat(this.$data.form.end);
+
+            // Avoid comparison between non numbers
+            if (isNaN(startAsNumber) || isNaN(endAsNumber)) {
+                return false;
+            }
+
+            return startAsNumber <= endAsNumber;
         }
 
         /**
