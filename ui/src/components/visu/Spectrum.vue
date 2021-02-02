@@ -26,6 +26,7 @@
 <script lang="ts">
     import { Component, Vue, Prop, Watch } from "vue-property-decorator";
     import * as Plotly from "plotly.js";
+    import { createLayout } from "@/common/Graph";
 
     const visibleColorSepctrum: [number, string][] = [
         [ 0, "#000000" ],
@@ -63,36 +64,16 @@
   public removeGraph: () => void;
 
   async mounted() {
-    this.initPlot();
-    this.updatePlot();
-    this.updateAxis();
+    await this.initPlot();
+    await this.updatePlot();
+    await this.updateAxis();
   }
 
-  async beforeUpdate() { this.updateAxis(); }
+  async beforeUpdate() { await this.updateAxis(); }
 
   async initPlot() {
-    const layout: Partial<Plotly.Layout> = {
-      xaxis: {
-        title: {
-          text: "" + this.$t("spectrum.xAxis_title")
-        }
-      },
-      yaxis: {
-        title: {
-          // Todo : look for the axis unit
-          text: "" + this.$t("spectrum.yAxis_title")
-        }
-      },
-      margin: {
-        l: 50,
-        r: 20,
-        b: 50,
-        t: 0
-      }
-    };
-
     // Draw plot
-    await Plotly.react("spectrum_plot_" + this.id, [], layout, {
+    await Plotly.react("spectrum_plot_" + this.id, [], createLayout(this), {
       displayModeBar: false,
       responsive: true
     });
@@ -100,16 +81,16 @@
   }
 
   @Watch("spectrumData")
-  onPropertyChanged() {
+  async onPropertyChanged() {
     // Props have changed, update the plot
-    this.updatePlot();
-    this.updateAxis();
+    await this.updatePlot();
+    await this.updateAxis();
   }
 
   /**
    * Draw a plot from the pros spectrumData
    */
-  updatePlot() {
+  async updatePlot() {
     // Line plot data creation
     const lineX: number[] = [];
     const lineY: number[] = [];
@@ -173,23 +154,11 @@
     };
 
     // Draw plot
-    Plotly.react("spectrum_plot_" + this.id, [ heatmap, linePlot ]);
+    await Plotly.react("spectrum_plot_" + this.id, [ heatmap, linePlot ]);
   }
 
-  updateAxis() {
-    const update: Partial<Plotly.Layout> = {
-      xaxis: {
-        title: {
-          text: "" + this.$t("spectrum.xAxis_title")
-        }
-      },
-      yaxis: {
-        title: {
-          text: "" + this.$t("spectrum.yAxis_title")
-        }
-      }
-    };
-    Plotly.relayout("spectrum_plot_" + this.id, update);
+  async updateAxis() {
+    await Plotly.relayout("spectrum_plot_" + this.id, createLayout(this));
   }
 
   /**

@@ -1,0 +1,30 @@
+{
+    "en": {
+        "comparison_dialog": {
+            "input": {
+                "title": "Select analyses to compare",
+                "no_analyses": {
+                    "title": "No analysis",
+                    "description": "There is no analysis to compare"
+                },
+                "show_button": "Display",
+                "select_all": "Select all"
+            },
+            "close": "Close"
+        }
+    },
+    "fr": {
+        "comparison_dialog": {
+            "input": {
+                "title": "Sélectionner les analyses à comparer",
+                "no_analyses": {
+                    "title": "Aucune analyse",
+                    "description": "Il n'y a pas d'analyses à comparer"
+                },
+                "show_button": "Afficher",
+                "select_all": "Sélectionner tout"
+            },
+            "close": "Fermer"
+        }
+    }
+}

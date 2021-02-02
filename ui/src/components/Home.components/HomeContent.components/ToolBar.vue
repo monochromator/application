@@ -1,5 +1,6 @@
 <template>
   <div class="md-toolbar-row">
+    <md-button class="md-button md-raised md-accent" @click="showComparisonInputDialog">{{ $t("home_content_toolbar.compare_button") }}</md-button>
     <span style="flex: 1"></span>
 
     <md-button class="md-button md-raised md-accent" @click="showCalibrationDialog" :disabled="$data.analysisRunning">
@@ -9,6 +10,7 @@
       {{ $t("home_content_toolbar.analysis_button") }}
     </md-button>
 
+    <ComparisonInputDialog ref="comparisonInputDialog" />
     <AnalysisDialog ref="analysisDialog" :addAnalysis="addAnalysis" :updateAnalysis="updateAnalysis" :updateAnalysisStatus="updateAnalysisStatus" />
     <CalibrationDialog ref="calibrationDialog" />
   </div>
@@ -17,6 +19,9 @@
 <script lang="ts">
     import { Component, Prop, Vue } from "vue-property-decorator";
     import AnalysisDialog from "@/components/Home.components/HomeContent.components/Toolbar.components/AnalysisDialog.vue";
+    import AnalysisMetaData from "@/common/AnalysisMetaData";
+    import ComparisonInputDialog
+        from "@/components/Home.components/HomeContent.components/Toolbar.components/ComparisonInputDialog.vue";
     import CalibrationDialog
         from "@/components/Home.components/HomeContent.components/Toolbar.components/CalibrationDialog.vue";
 
@@ -31,7 +36,7 @@
      * Main component
      */
     @Component({
-      components: { CalibrationDialog, AnalysisDialog }
+      components: { ComparisonInputDialog, CalibrationDialog, AnalysisDialog }
     })
     export default class ToolBar extends Vue {
         @Prop({ required: true })
@@ -40,17 +45,26 @@
         @Prop({ required: true })
         public updateAnalysis: (id: string, data: [number, number][]) => void;
 
-        data(): ToolBarData {
+      @Prop({ required: true })
+      public analysesSupplier: () => [AnalysisMetaData, [number, number][]][];
+
+      data(): ToolBarData {
             return {
                 analysisRunning: false
             };
         }
-
         /**
          * Show analysis dialog
          */
         showAnalysisDialog() {
             (this.$refs.analysisDialog as AnalysisDialog).showDialog();
+        }
+
+        /**
+         * Show comparison input dialog
+         */
+        showComparisonInputDialog() {
+            (this.$refs.comparisonInputDialog as ComparisonInputDialog).showDialog(this.analysesSupplier());
         }
 
         /**

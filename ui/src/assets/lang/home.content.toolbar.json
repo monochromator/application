@@ -2,12 +2,14 @@
     "en": {
         "home_content_toolbar": {
             "analysis_button": "Analyze",
+            "compare_button": "Compare",
             "calibration_button": "Calibrate"
         }
     },
     "fr": {
         "home_content_toolbar": {
             "analysis_button": "Analyser",
+            "compare_button": "Comparer",
             "calibration_button": "Calibrer"
         }
     }
