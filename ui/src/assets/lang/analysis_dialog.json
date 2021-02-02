@@ -1,7 +1,7 @@
 {
     "en": {
         "analysis_dialog": {
-            "title": "Analysis launcher",
+            "title": "Analysis",
             "run": "Run",
             "close": "Close",
             "range_start_label": "Start",
@@ -15,7 +15,12 @@
                 "visible": "Visible spectrum"
             },
             "name_label": "Name (Optional)",
-            "name_error": "Name shouldn't exceed {max} characters"
+            "name_error": "Name shouldn't exceed {max} characters",
+            "process": {
+                "start_error": "Failed to start analysis",
+                "error": "Error occurred during analysis",
+                "not_calibrated": "Monochromator isn't calibrated"
+            }
         }
     },
     "fr": {
@@ -34,7 +39,12 @@
                 "visible": "Spectre visible"
             },
             "name_label": "Nom (Optionnel)",
-            "name_error": "Nom ne doit pas dépasser {max} caractères"
+            "name_error": "Nom ne doit pas dépasser {max} caractères",
+            "process": {
+                "start_error": "Impossible de lancer l'analyse",
+                "error": "Une erreur est survenue durant l'analyse",
+                "not_calibrated": "Le monochromateur n'est pas calibré"
+            }
         }
     }
 }

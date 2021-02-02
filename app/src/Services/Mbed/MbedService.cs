@@ -2,6 +2,7 @@ using System;
 using System.IO.Ports;
 using Chromely.Core;
 using Chromely.Core.Network;
+using Monochromator.App.Exceptions;
 using Monochromator.App.Mbed;
 using NLog;
 
@@ -10,11 +11,11 @@ namespace Monochromator.App.Services.Mbed {
     /// Service for MBED
     /// </summary>
     public class MbedService {
-        private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();
         private const uint PingResponse = 1234567;
-        
+        private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();
+
         private readonly IChromelyContainer _container;
-        
+
         /// <summary>
         /// Constructor
         /// </summary>
@@ -96,7 +97,7 @@ namespace Monochromator.App.Services.Mbed {
 
             return response == PingResponse;
         }
-        
+
         /// <summary>
         /// Ping connected controller and throw an exception if unable to ping it
         /// </summary>

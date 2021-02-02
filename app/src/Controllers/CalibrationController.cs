@@ -2,44 +2,39 @@ using System;
 using Chromely.Core;
 using Chromely.Core.Configuration;
 using Chromely.Core.Network;
-using Monochromator.App.Exceptions;
-using Monochromator.App.Services.Analysis;
+using Monochromator.App.Services.Calibration;
 using NLog;
 
 namespace Monochromator.App.Controllers {
     /// <summary>
-    /// Controller for analysis
+    /// Controller for calibration
     /// </summary>
-    public class AnalysisController : ChromelyController {
+    public class CalibrationController : ChromelyController {
         private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();
 
-        private readonly AnalysisService _service;
+        private readonly CalibrationService _service;
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="container">Container</param>
         /// <param name="configuration">Configuration</param>
-        public AnalysisController(IChromelyContainer container, IChromelyConfiguration configuration) {
-            _service = new AnalysisService(container, configuration);
+        public CalibrationController(IChromelyContainer container, IChromelyConfiguration configuration) {
+            _service = new CalibrationService(container, configuration);
         }
 
         /// <summary>
-        /// Callback of /analysis/run
+        /// Callback of /calibration/run
         /// </summary>
         /// <param name="request">Request</param>
         /// <returns>Response</returns>
-        [HttpPost(Route = "/analysis/run")]
+        [HttpPost(Route = "/calibration/run")]
         public ChromelyResponse Run(ChromelyRequest request) {
             try {
                 // Run analysis
-                _service.Analyse(request);
+                _service.Calibrate(request);
 
                 return new ChromelyResponse();
-            } catch (NotCalibratedException e) {
-                Logger.Error(e);
-
-                return new ErrorResponse(e, NotCalibratedException.Code);
             } catch (Exception e) {
                 Logger.Error(e);
 

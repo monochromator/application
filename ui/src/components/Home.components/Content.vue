@@ -41,10 +41,10 @@
       components: { Spectrum, ToolBar }
     })
     export default class Content extends Vue {
-        data() {
+        data(): ContentData {
             return {
                 analyses: [],
-                activeTab: null
+                activeTab: undefined
             };
         }
 

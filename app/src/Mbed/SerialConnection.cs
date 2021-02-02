@@ -1,11 +1,14 @@
 using System;
 using System.IO.Ports;
+using NLog;
 
 namespace Monochromator.App.Mbed {
     /// <summary>
     /// Managed serial connection with MBED
     /// </summary>
     public class SerialConnection : IDisposable {
+        private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();
+
         private readonly SerialPort _port;
         private bool _disposed;
 
@@ -83,8 +86,9 @@ namespace Monochromator.App.Mbed {
         /// </summary>
         public void Open() {
             _port.Open();
+            Logger.Info($"Open connection with: {_port.PortName}");
         }
-
+        
         public void Dispose() {
             if (_disposed) {
                 return;
@@ -93,6 +97,7 @@ namespace Monochromator.App.Mbed {
             // Dispose connection
             _port.Dispose();
             _disposed = true;
+            Logger.Info($"Close connection with: {_port.PortName}");
 
             // Remove from garbage collection
             GC.SuppressFinalize(this);

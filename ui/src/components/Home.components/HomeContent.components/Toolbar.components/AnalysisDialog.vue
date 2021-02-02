@@ -54,6 +54,7 @@
     import { Component, Prop, Vue } from "vue-property-decorator";
     import ErrorNotification from "@/common/ErrorNotification";
     import { HttpMethod, query } from "@/services/ChromelyService";
+    import { NotCalibrated } from "@/common/ErrorCodes";
 
     /**
      * Data contained by analysis form
@@ -147,7 +148,7 @@
          * Callback on analysis error
          */
         onAnalysisError() {
-            this.notifyError("home_content_toolbar.analysis_error");
+            this.notifyError("analysis_dialog.process.error");
             this.closeDialog();
         }
 
@@ -168,8 +169,8 @@
                 }
             }, () => {
                 // Do nothing
-            }, () => {
-                this.notifyError("home_content_toolbar.analysis_start_error");
+            }, e => {
+                this.notifyError(e.StatusText === NotCalibrated ? "analysis_dialog.process.not_calibrated" : "analysis_dialog.process.start_error");
                 this.closeDialog();
             });
         }
@@ -207,7 +208,9 @@
          * Test whether analysis step is valid
          */
         stepIsValid() {
-            return this.$data.form.step > 0;
+          const stepAsNumber = parseFloat(this.$data.form.step);
+
+          return !isNaN(stepAsNumber) && stepAsNumber > 0;
         }
 
         /**
