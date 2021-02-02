@@ -53,6 +53,7 @@
                 analysisRunning: false
             };
         }
+
         /**
          * Show analysis dialog
          */
