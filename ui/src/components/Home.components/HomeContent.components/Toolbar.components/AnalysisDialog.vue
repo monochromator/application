@@ -4,6 +4,13 @@
       <md-dialog-title>{{$t("analysis_dialog.title")}}</md-dialog-title>
 
       <md-dialog-content style="width: 50vw" md-dynamic-height>
+        <div style="margin-bottom: 10px">
+          <div class="md-subheading" style="margin-bottom: 10px">{{$t("analysis_dialog.presets.section_name")}}</div>
+
+          <md-chip v-for="preset in this.presets" :md-clickable="true" :key="preset.name" @click="applyPreset(preset)">{{$t("analysis_dialog.presets." + preset.name)}}</md-chip>
+        </div>
+        <md-divider></md-divider>
+
         <md-field :class="nameIsValid() ? '' : 'md-invalid'">
           <label>{{$t("analysis_dialog.name_label")}}</label>
           <md-input v-model="$data.form.name" type="text" :maxlength="this.nameLimit"></md-input>
@@ -69,6 +76,15 @@
       form: AnalysisForm;
     }
 
+    /**
+     * Analysis preset
+     */
+    interface Preset {
+      name: string;
+      start: number;
+      end: number;
+    }
+
     const ANALYSIS_RESULTS_EVENT = "analysis.end";
     const ANALYSIS_ERROR_EVENT = "analysis.error";
 
@@ -80,7 +96,14 @@
         @Prop({ required: true })
         public addAnalysis: (data: [number, number][], name?: string) => void;
 
-        public nameLimit = 30;
+        private nameLimit = 30;
+        private presets: Preset[] = [
+          {
+            name: "visible",
+            start: 380,
+            end: 750
+          }
+        ];
 
         data(): AnalysisDialogData {
             return {
@@ -194,7 +217,15 @@
          * Test whether analysis range is valid
          */
         rangeIsValid() {
-            return this.$data.form.start <= this.$data.form.end;
+            const startAsNumber = parseFloat(this.$data.form.start);
+            const endAsNumber = parseFloat(this.$data.form.end);
+
+            // Avoid comparison between non numbers
+            if (isNaN(startAsNumber) || isNaN(endAsNumber)) {
+                return false;
+            }
+
+            return startAsNumber <= endAsNumber;
         }
 
         /**
@@ -202,6 +233,16 @@
          */
         nameIsValid() {
             return this.$data.form.name === undefined || this.$data.form.name.length <= this.nameLimit;
+        }
+
+        /**
+         * Apply the given preset
+         *
+         * @param preset Preset to apply
+         */
+        applyPreset(preset: Preset) {
+            this.$data.form.start = preset.start;
+            this.$data.form.end = preset.end;
         }
     }
 </script>
