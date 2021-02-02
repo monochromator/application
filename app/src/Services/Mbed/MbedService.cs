@@ -13,16 +13,7 @@ namespace Monochromator.App.Services.Mbed {
     public class MbedService {
         private const uint PingResponse = 1234567;
         private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();
-
-        private readonly IChromelyContainer _container;
-
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="container">Container</param>
-        public MbedService(IChromelyContainer container) {
-            _container = container;
-        }
+        public static SerialConnection? Connection = null;
 
         /// <summary>
         /// Get connected devices' names
@@ -103,8 +94,7 @@ namespace Monochromator.App.Services.Mbed {
         /// </summary>
         public void Ping() {
             // Get controller
-            var controller = _container.GetInstance<SerialConnection>(typeof(SerialConnection).FullName) ??
-                             throw new Exception("No controller connected");
+            var controller = Connection ?? throw new Exception("No controller connected");
 
             if (!IsMonochromator(controller)) {
                 throw new Exception("Unable to ping connected device");
