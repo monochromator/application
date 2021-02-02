@@ -10,6 +10,8 @@
             "range_end_error": "End should be greater or equal to start",
             "range_step_label": "Step",
             "range_step_error": "Step should be greater than 0",
+            "iterations_label": "Iterations",
+            "iterations_error": "Iterations should be greater than 0",
             "presets": {
                 "section_name": "Presets",
                 "visible": "Visible spectrum"
@@ -20,6 +22,10 @@
                 "start_error": "Failed to start analysis",
                 "error": "Error occurred during analysis",
                 "not_calibrated": "Monochromator isn't calibrated"
+            },
+            "looper": {
+                "message": "Analysis in progress... - Remaining iterations: {count}",
+                "stop": "Stop"
             }
         }
     },
@@ -34,6 +40,8 @@
             "range_end_error": "Fin doit être supérieur ou égal à Début",
             "range_step_label": "Pas",
             "range_step_error": "Pas doit être supérieur à 0",
+            "iterations_label": "Itérations",
+            "iterations_error": "Itérations doivent être supérieures à 0",
             "presets": {
                 "section_name": "Préréglages",
                 "visible": "Spectre visible"
@@ -44,6 +52,10 @@
                 "start_error": "Impossible de lancer l'analyse",
                 "error": "Une erreur est survenue durant l'analyse",
                 "not_calibrated": "Le monochromateur n'est pas calibré"
+            },
+            "looper": {
+                "message": "Analyse en cours... - Itérations restantes: {count}",
+                "stop": "Stop"
             }
         }
     }
