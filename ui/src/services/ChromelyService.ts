@@ -9,6 +9,17 @@ interface CefResponse {
 }
 
 /**
+ * Error
+ */
+interface Error {
+    Data: object;
+    ReadyState: number;
+    RequestId: string;
+    Status: number;
+    StatusText: string;
+}
+
+/**
  * HTTP methods
  */
 enum HttpMethod {
@@ -33,7 +44,7 @@ interface CefRequest {
  * @param onSuccess Callback on success
  * @param onError Callback on error
  */
-const query = function(request: CefRequest, onSuccess: (response: CefResponse) => void, onError: (error: string) => void) {
+const query = function(request: CefRequest, onSuccess: (response: CefResponse) => void, onError: (error: Error) => void) {
     return (window as any).cefQuery({
         request: JSON.stringify(request),
         onSuccess: function(response: string) {
@@ -44,7 +55,7 @@ const query = function(request: CefRequest, onSuccess: (response: CefResponse) =
             if (responseAsJson.Status === 200) {
                 onSuccess(responseAsJson as CefResponse);
             } else {
-                onError(responseAsJson.Data);
+                onError(responseAsJson as Error);
             }
         }
     });

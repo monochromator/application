@@ -4,6 +4,7 @@ namespace Monochromator.App.Services.Mbed {
     /// </summary>
     public enum PacketHeader : uint {
         Ping = 0,
-        Analysis = 1
+        Analysis = 1,
+        Calibrate = 2
     }
 }

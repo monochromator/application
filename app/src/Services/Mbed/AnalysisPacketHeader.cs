@@ -5,6 +5,7 @@ namespace Monochromator.App.Services.Mbed {
     public enum AnalysisPacketHeader : uint {
         InvalidArguments = 0,
         Start = 1,
-        ResultsSize = 2
+        ResultsSize = 2,
+        NotCalibrated = 3
     }
 }

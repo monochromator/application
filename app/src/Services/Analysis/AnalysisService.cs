@@ -57,9 +57,11 @@ namespace Monochromator.App.Services.Analysis {
             switch (response) {
                 case AnalysisPacketHeader.InvalidArguments:
                     throw new Exception($"Invalid analysis arguments (start: {arguments.Start}, end: {arguments.End}, step: {arguments.Step})");
+                
+                case AnalysisPacketHeader.NotCalibrated:
+                    throw new NotCalibratedException();
 
                 case AnalysisPacketHeader.Start:
-                    Logger.Info("Analysis is starting");
                     break;
 
                 case AnalysisPacketHeader.ResultsSize:
@@ -129,7 +131,7 @@ namespace Monochromator.App.Services.Analysis {
         /// Send analysis error to UI
         /// </summary>
         private void SendAnalysisError() {
-            _configuration.JavaScriptExecutor.ExecuteScript(@"window.dispatchEvent(new Event('analysis.error'))");
+            _configuration.NotifyEvent("analysis.error");
         }
 
         /// <summary>
