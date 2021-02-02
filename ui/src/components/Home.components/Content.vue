@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ToolBar :addAnalysis="addAnalysis"/>
+    <ToolBar :addAnalysis="addAnalysis" :analyses-supplier="() => $data.analyses" />
 
     <div style="min-height: 100%; max-height: 100%">
       <md-empty-state md-rounded class="md-accent md-app-content" md-icon="bar_chart" :md-label="$t('home_content.empty_graphs_title')"
@@ -22,16 +22,9 @@
     import { v4 as uuidv4 } from "uuid";
     import moment from "moment";
     import Spectrum from "@/components/visu/Spectrum.vue";
+    import AnalysisMetaData from "@/common/AnalysisMetaData";
 
     const TIME_FORMAT = "YYYY-MM-DD HH:mm:ss";
-
-    /**
-     * Metadata of analysis
-     */
-    interface AnalysisMetaData {
-      name: string;
-      id: string;
-    }
 
     /**
      * Data hold by content component
