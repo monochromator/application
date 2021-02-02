@@ -11,6 +11,7 @@
       </md-dialog-content>
 
       <md-dialog-actions>
+        <md-button class="md-accent md-raised" @click="selectAll">{{$t("comparison_dialog.input.select_all")}}</md-button>
         <md-button class="md-primary md-raised" :disabled="$data.selected.length <= 1" @click="showComparison">{{$t("comparison_dialog.input.show_button")}}</md-button>
       </md-dialog-actions>
     </md-dialog>
@@ -66,6 +67,13 @@
         showComparison() {
             this.$data.status = false;
             (this.$refs.comparisonDialog as AnalysesComparisonDialog).showDialog(this.$data.analyses.filter((analysis: [AnalysisMetaData, [number, number][]]) => this.$data.selected.includes(analysis[0].id)));
+        }
+
+        /**
+         * Select all graphs
+         */
+        selectAll() {
+            this.$data.selected = this.$data.analyses.map((analysis: [AnalysisMetaData, [number, number][]]) => analysis[0].id);
         }
     }
 </script>

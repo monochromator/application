@@ -58,7 +58,7 @@
             // Add analysis
             const id = uuidv4();
             this.$data.analyses.push([ {
-                name: name === undefined ? moment().format(TIME_FORMAT) : `${name} (${moment().format(TIME_FORMAT)})`,
+                name: name === undefined ? moment().format(TIME_FORMAT) : name,
                 id: id
             }, data ]);
 

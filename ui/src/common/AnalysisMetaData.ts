@@ -1,7 +1,9 @@
 /**
  * Metadata of analysis
  */
-export default interface AnalysisMetaData {
+interface AnalysisMetaData {
     name: string;
     id: string;
-};
+}
+
+export default AnalysisMetaData;

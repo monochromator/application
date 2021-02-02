@@ -26,6 +26,7 @@
 <script lang="ts">
     import { Component, Vue, Prop, Watch } from "vue-property-decorator";
     import * as Plotly from "plotly.js";
+    import { createLayout } from "@/common/Graph";
 
     const visibleColorSepctrum: [number, string][] = [
         [ 0, "#000000" ],
@@ -71,28 +72,8 @@
   async beforeUpdate() { await this.updateAxis(); }
 
   async initPlot() {
-    const layout: Partial<Plotly.Layout> = {
-      xaxis: {
-        title: {
-          text: "" + this.$t("spectrum.xAxis_title")
-        }
-      },
-      yaxis: {
-        title: {
-          // Todo : look for the axis unit
-          text: "" + this.$t("spectrum.yAxis_title")
-        }
-      },
-      margin: {
-        l: 50,
-        r: 20,
-        b: 50,
-        t: 0
-      }
-    };
-
     // Draw plot
-    await Plotly.react("spectrum_plot_" + this.id, [], layout, {
+    await Plotly.react("spectrum_plot_" + this.id, [], createLayout(this), {
       displayModeBar: false,
       responsive: true
     });
@@ -177,20 +158,7 @@
   }
 
   async updateAxis() {
-    const update: Partial<Plotly.Layout> = {
-      xaxis: {
-        title: {
-          text: "" + this.$t("spectrum.xAxis_title")
-        }
-      },
-      yaxis: {
-        title: {
-          // Todo : look for the axis unit
-          text: "" + this.$t("spectrum.yAxis_title")
-        }
-      }
-    };
-    await Plotly.relayout("spectrum_plot_" + this.id, update);
+    await Plotly.relayout("spectrum_plot_" + this.id, createLayout(this));
   }
 
   /**

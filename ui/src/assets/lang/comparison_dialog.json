@@ -7,8 +7,10 @@
                     "title": "No analysis",
                     "description": "There is no analysis to compare"
                 },
-                "show_button": "Display"
-            }
+                "show_button": "Display",
+                "select_all": "Select all"
+            },
+            "close": "Close"
         }
     },
     "fr": {
@@ -19,8 +21,10 @@
                     "title": "Aucune analyse",
                     "description": "Il n'y a pas d'analyses à comparer"
                 },
-                "show_button": "Afficher"
-            }
+                "show_button": "Afficher",
+                "select_all": "Sélectionner tout"
+            },
+            "close": "Fermer"
         }
     }
 }
