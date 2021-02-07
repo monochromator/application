@@ -21,15 +21,12 @@ namespace Monochromator.App.Services.Analysis {
         private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();
 
         private readonly IChromelyConfiguration _configuration;
-        private readonly IChromelyContainer _container;
 
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="container">Container</param>
         /// <param name="configuration">Configuration</param>
-        public AnalysisService(IChromelyContainer container, IChromelyConfiguration configuration) {
-            _container = container;
+        public AnalysisService(IChromelyConfiguration configuration) {
             _configuration = configuration;
         }
 
@@ -43,8 +40,7 @@ namespace Monochromator.App.Services.Analysis {
             var arguments = ParseAnalysisRequest(request);
 
             // Get controller
-            var controller = _container.GetInstance<SerialConnection>(typeof(SerialConnection).FullName) ??
-                             throw new Exception("No controller connected");
+            var controller = MbedService.Connection ?? throw new Exception("No controller connected");
 
             // Send arguments
             controller.Send((uint) PacketHeader.Analysis);

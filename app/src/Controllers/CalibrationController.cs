@@ -17,10 +17,9 @@ namespace Monochromator.App.Controllers {
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="container">Container</param>
         /// <param name="configuration">Configuration</param>
-        public CalibrationController(IChromelyContainer container, IChromelyConfiguration configuration) {
-            _service = new CalibrationService(container, configuration);
+        public CalibrationController(IChromelyConfiguration configuration) {
+            _service = new CalibrationService(configuration);
         }
 
         /// <summary>

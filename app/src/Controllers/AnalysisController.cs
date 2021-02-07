@@ -18,10 +18,9 @@ namespace Monochromator.App.Controllers {
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="container">Container</param>
         /// <param name="configuration">Configuration</param>
-        public AnalysisController(IChromelyContainer container, IChromelyConfiguration configuration) {
-            _service = new AnalysisService(container, configuration);
+        public AnalysisController(IChromelyConfiguration configuration) {
+            _service = new AnalysisService(configuration);
         }
 
         /// <summary>
