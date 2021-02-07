@@ -1,0 +1,12 @@
+{
+    "en": {
+        "open_dialog": {
+            "title": "Select analysis to load"
+        }
+    },
+    "fr": {
+        "open_dialog": {
+            "title": "Sélectionner l'analyse à ouvrir"
+        }
+    }
+}
