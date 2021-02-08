@@ -1,12 +1,20 @@
 {
     "en": {
         "open_dialog": {
-            "title": "Select analysis to load"
+            "title": "Select analysis to load",
+            "open": "Open",
+            "or": "or",
+            "csv_placeholder": "Analysis content",
+            "load_error": "Failed to load the given analysis"
         }
     },
     "fr": {
         "open_dialog": {
-            "title": "Sélectionner l'analyse à ouvrir"
+            "title": "Sélectionner l'analyse à ouvrir",
+            "open": "Ouvrir",
+            "or": "ou",
+            "csv_placeholder": "Contenu de l'analyse",
+            "load_error": "Impossible de charger l'analyse donnée"
         }
     }
 }

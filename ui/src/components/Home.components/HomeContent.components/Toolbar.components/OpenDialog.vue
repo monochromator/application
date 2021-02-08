@@ -5,6 +5,20 @@
 
       <md-dialog-content style="width: 50vw" md-dynamic-height>
         <md-field>
+          <md-textarea v-model="$data.csvInput" :placeholder="$t('open_dialog.csv_placeholder')"></md-textarea>
+        </md-field>
+
+        <div style="display: flex; justify-content: center; margin-bottom: 10px">
+          <md-button class="md-button md-raised md-primary" @click="load($data.csvInput)">{{$t("open_dialog.open")}}</md-button>
+        </div>
+
+        <div style="display: flex">
+          <md-divider style="flex: 1"></md-divider>
+          <span style="flex: 1; text-align: center;text-transform: uppercase">{{$t("open_dialog.or")}}</span>
+          <md-divider style="flex: 1"></md-divider>
+        </div>
+
+        <md-field>
           <md-file @md-change="upload" />
         </md-field>
       </md-dialog-content>
@@ -27,6 +41,7 @@
     interface OpenDialogData {
       status: boolean;
       errorNotification: ErrorNotification;
+      csvInput: string;
     }
 
     /**
@@ -44,7 +59,8 @@
                     status: false,
                     label: undefined,
                     parameters: undefined
-                }
+                },
+                csvInput: ""
             };
         }
 
@@ -78,15 +94,29 @@
             const reader = new FileReader();
             reader.onload = (event) => {
                 if (event.target !== null && event.target.result !== null) {
-                    const csv = fromCSV(event.target.result.toString());
-
-                    if (csv.length > 0) {
-                        this.addAnalysis(csv, files[0].name);
-                    }
+                    this.load(event.target.result.toString(), files[0].name);
                 }
-                this.$data.status = false;
             };
             reader.readAsText(files[0]);
+        }
+
+        /**
+         * Load the given CSV
+         *
+         * @param csv CSV as string
+         * @param name Name
+         */
+        load(csv: string, name?: string) {
+            try {
+              const analysis = fromCSV(csv);
+
+              if (analysis.length > 0) {
+                this.addAnalysis(analysis, name);
+                this.$data.status = false;
+              }
+            } catch (e) {
+                this.notifyError("open_dialog.load_error");
+            }
         }
     }
 </script>
