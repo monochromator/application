@@ -44,8 +44,8 @@ const fromCSV = (csv: string): [number, number][] => {
     }
 
     // Parse headers
-    const headerToIndex = csvAsArray[0]
-        .map((header: string): [number, string] => [ HEADERS.indexOf(header), header ])
+    const headerToIndex = HEADERS
+        .map((header: string): [number, string] => [ csvAsArray[0].indexOf(header), header ])
         .reduce((map: HeaderToIndexMap, indexAndHeader: [number, string]) => {
             map[indexAndHeader[1]] = indexAndHeader[0] >= 0 ? indexAndHeader[0] : undefined;
             return map;

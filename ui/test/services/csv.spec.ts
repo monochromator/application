@@ -18,5 +18,9 @@ describe("CSVService", () => {
 
             expect(fromCSV("STEPS;RAW;EXTRA\n0;1;B\n2;3;C\n")).toStrictEqual([ [ 0, 1 ], [ 2, 3 ] ]);
         });
+
+        test("Load swapped headers", () => {
+            expect(fromCSV("RAW;A;STEPS\n3;2;1\n6;5;4\n")).toStrictEqual([ [ 1, 3 ], [ 4, 6 ] ]);
+        });
     });
 });
