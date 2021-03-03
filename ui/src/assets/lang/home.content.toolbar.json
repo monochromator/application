@@ -3,14 +3,16 @@
         "home_content_toolbar": {
             "analysis_button": "Analyze",
             "compare_button": "Compare",
-            "calibration_button": "Calibrate"
+            "calibration_button": "Calibrate",
+            "open_button": "Open"
         }
     },
     "fr": {
         "home_content_toolbar": {
             "analysis_button": "Analyser",
             "compare_button": "Comparer",
-            "calibration_button": "Calibrer"
+            "calibration_button": "Calibrer",
+            "open_button": "Ouvrir"
         }
     }
 }

@@ -53,7 +53,7 @@
      * Main component
      */
     @Component
-    export default class AnalysisDialog extends Vue {
+    export default class CalibrationDialog extends Vue {
         data(): CalibrationDialogData {
             return {
                 status: false,

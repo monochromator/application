@@ -1,6 +1,7 @@
 <template>
   <div class="md-toolbar-row">
     <md-button class="md-button md-raised md-accent" @click="showComparisonInputDialog">{{ $t("home_content_toolbar.compare_button") }}</md-button>
+    <md-button class="md-button md-raised md-accent" @click="showOpenDialog">{{$t("home_content_toolbar.open_button")}}</md-button>
     <span style="flex: 1"></span>
 
     <md-button class="md-button md-raised md-accent" @click="showCalibrationDialog" :disabled="$data.analysisRunning">
@@ -13,6 +14,7 @@
     <ComparisonInputDialog ref="comparisonInputDialog" />
     <AnalysisDialog ref="analysisDialog" :addAnalysis="addAnalysis" :updateAnalysis="updateAnalysis" :updateAnalysisStatus="updateAnalysisStatus" />
     <CalibrationDialog ref="calibrationDialog" />
+    <OpenDialog ref="openDialog" :addAnalysis="addAnalysis" />
   </div>
 </template>
 
@@ -24,6 +26,7 @@
         from "@/components/Home.components/HomeContent.components/Toolbar.components/ComparisonInputDialog.vue";
     import CalibrationDialog
         from "@/components/Home.components/HomeContent.components/Toolbar.components/CalibrationDialog.vue";
+    import OpenDialog from "@/components/Home.components/HomeContent.components/Toolbar.components/OpenDialog.vue";
 
     /**
      * Data hold by ToolBar component
@@ -36,7 +39,7 @@
      * Main component
      */
     @Component({
-      components: { ComparisonInputDialog, CalibrationDialog, AnalysisDialog }
+      components: { OpenDialog, ComparisonInputDialog, CalibrationDialog, AnalysisDialog }
     })
     export default class ToolBar extends Vue {
         @Prop({ required: true })
@@ -73,6 +76,13 @@
          */
         showCalibrationDialog() {
             (this.$refs.calibrationDialog as CalibrationDialog).showDialog();
+        }
+
+        /**
+         * Show open dialog
+         */
+        showOpenDialog() {
+            (this.$refs.openDialog as OpenDialog).showDialog();
         }
 
         /**
