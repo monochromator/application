@@ -1,0 +1,16 @@
+{
+    "en": {
+        "save_dialog": {
+            "title": "Export",
+            "or": "or",
+            "save_btn_title": "Save"
+        }
+    },
+    "fr": {
+        "save_dialog": {
+            "title": "Export",
+            "or": "ou",
+            "save_btn_title": "Sauvegarder"
+        }
+    }
+}

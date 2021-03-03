@@ -12,6 +12,7 @@ import common from "./common.json";
 import comparisonDialog from "./comparison_dialog.json";
 import calibrationDialog from "./calibration_dialog.json";
 import openDialog from "./open_dialog.json";
+import saveDialog from "./save_dialog.json";
 
 // DO NOT FORGET TO ADD YOUR NEW LANGUAGE FILE TO MERGE PARAMETERS
 
@@ -26,5 +27,6 @@ export default merge.all([
     common,
     comparisonDialog,
     calibrationDialog,
-    openDialog
+    openDialog,
+    saveDialog
 ]) as LocaleMessages;

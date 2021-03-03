@@ -36,7 +36,7 @@
     import { fromCSV } from "@/services/CSVService";
 
     /**
-     * Data hold by calibration dialog
+     * Data hold by open dialog
      */
     interface OpenDialogData {
       status: boolean;

@@ -5,26 +5,22 @@
         >{{ $t("spectrum.close_btn_title") }}
         <md-icon>close</md-icon></md-button
       >
-      <md-button class="md-raised" @click="save()"
+      <md-button class="md-raised" @click="showSaveDialog()"
         >{{ $t("spectrum.save_btn_title") }}
         <md-icon>save</md-icon></md-button
       >
-      <a
-          :href="`data:text/csv;charset=utf-8,${encodeURI(asFile())}`"
-          download="analysis.csv" style="display: none" ref="downloadLink">
-      </a>
 
       <md-menu md-size="small">
-        <md-button md-menu-trigger class="md-raised">{{
-          $t("spectrum.filter_btn_title")
-        }}</md-button>
+        <md-button md-menu-trigger class="md-raised">{{$t("spectrum.filter_btn_title")}}</md-button>
         <md-menu-content>
           <md-menu-item>{{ $t("spectrum.filter_btn_raw") }}</md-menu-item>
           <md-menu-item>{{ $t("spectrum.filter_btn_smooth") }}</md-menu-item>
         </md-menu-content>
       </md-menu>
     </div>
+
     <div :id="'spectrum_plot_' + id" />
+    <SaveDialog ref="saveDialog"></SaveDialog>
   </div>
 </template>
 
@@ -32,7 +28,7 @@
     import { Component, Vue, Prop, Watch } from "vue-property-decorator";
     import * as Plotly from "plotly.js";
     import { createLayout } from "@/common/Graph";
-    import { toCSV } from "@/services/CSVService";
+    import SaveDialog from "@/components/visu/SaveDialog.vue";
 
     const visibleColorSepctrum: [number, string][] = [
         [ 0, "#000000" ],
@@ -57,8 +53,9 @@
 
     const longMin = 0;
     const longMax = 780;
-
-    @Component
+    @Component({
+      components: { SaveDialog }
+    })
     export default class Spectrum extends Vue {
       @Prop({ required: true })
       public spectrumData: [number, number][];
@@ -175,17 +172,10 @@
       }
 
       /**
-       * Save analysis
+       * Show save dialog
        */
-      save() {
-        (this.$refs.downloadLink as HTMLAnchorElement).click();
-      }
-
-      /**
-       * Convert spectrum to a CSV file
-       */
-      asFile() {
-        return toCSV(this.spectrumData);
+      showSaveDialog() {
+        (this.$refs.saveDialog as SaveDialog).showDialog(this.spectrumData);
       }
     }
 </script>
