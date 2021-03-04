@@ -1,0 +1,2 @@
+# in application/app
+dotnet build && sudo ./bin/Debug/netcoreapp3.1/monochromator
