@@ -77,6 +77,9 @@ def buildApp():
 
         extractCef(sup_os)
 
+        # Removing tar
+        os.system("rm " + buildPath + "/cef.tar.bz2")
+
 
 def buildUi():
     os.system("npm install --prefix " + UI_PATH)
