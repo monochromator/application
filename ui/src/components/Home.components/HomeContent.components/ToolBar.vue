@@ -4,16 +4,16 @@
     <md-button class="md-button md-raised md-accent" @click="showOpenDialog">{{$t("home_content_toolbar.open_button")}}</md-button>
     <span style="flex: 1"></span>
 
-    <md-button class="md-button md-raised md-accent" @click="showCalibrationDialog" :disabled="$data.analysisRunning">
+    <md-button class="md-button md-raised md-accent" @click="showCalibrationDialog" :disabled="$data.controllerComputing">
       {{ $t("home_content_toolbar.calibration_button") }}
     </md-button>
-    <md-button class="md-button md-raised md-accent" @click="showAnalysisDialog" :disabled="$data.analysisRunning">
+    <md-button class="md-button md-raised md-accent" @click="showAnalysisDialog" :disabled="$data.controllerComputing">
       {{ $t("home_content_toolbar.analysis_button") }}
     </md-button>
 
     <ComparisonInputDialog ref="comparisonInputDialog" />
-    <AnalysisDialog ref="analysisDialog" :addAnalysis="addAnalysis" :updateAnalysis="updateAnalysis" :updateAnalysisStatus="updateAnalysisStatus" />
-    <CalibrationDialog ref="calibrationDialog" />
+    <AnalysisDialog ref="analysisDialog" :addAnalysis="addAnalysis" :updateAnalysis="updateAnalysis" :updateComputingStatus="updateComputingStatus" />
+    <CalibrationDialog ref="calibrationDialog" :updateComputingStatus="updateComputingStatus" />
     <OpenDialog ref="openDialog" :addAnalysis="addAnalysis" />
   </div>
 </template>
@@ -32,7 +32,7 @@
      * Data hold by ToolBar component
      */
     interface ToolBarData {
-        analysisRunning: boolean;
+      controllerComputing: boolean;
     }
 
     /**
@@ -53,7 +53,7 @@
 
       data(): ToolBarData {
             return {
-                analysisRunning: false
+              controllerComputing: false
             };
         }
 
@@ -86,12 +86,12 @@
         }
 
         /**
-         * Update analysis status
+         * Update computing status
          *
-         * @param running
+         * @param computing New computing status
          */
-        updateAnalysisStatus(running: boolean) {
-            this.$data.analysisRunning = running;
+        updateComputingStatus(computing: boolean) {
+            this.$data.controllerComputing = computing;
         }
     }
 </script>

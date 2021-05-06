@@ -27,7 +27,7 @@
 
 <script lang="ts">
     import ErrorNotification from "@/common/ErrorNotification";
-    import { Component, Vue } from "vue-property-decorator";
+    import { Component, Prop, Vue } from "vue-property-decorator";
     import { HttpMethod, query } from "@/services/ChromelyService";
 
     /**
@@ -54,6 +54,9 @@
      */
     @Component
     export default class CalibrationDialog extends Vue {
+        @Prop({ required: true })
+        public updateComputingStatus: (running: boolean) => void;
+
         data(): CalibrationDialogData {
             return {
                 status: false,
@@ -72,6 +75,10 @@
         beforeMount() {
             window.addEventListener(CALIBRATION_END_EVENT, this.onCalibrationEnd);
             window.addEventListener(CALIBRATION_ERROR_EVENT, this.onCalibrationError);
+        }
+
+        beforeUpdate() {
+            this.updateComputingStatus(this.$data.calibrationRunning);
         }
 
         beforeDestroy() {
