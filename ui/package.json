@@ -1,6 +1,6 @@
 {
     "name": "monochromator-ui",
-    "version": "0.0.0",
+    "version": "1.0.0",
     "private": true,
     "scripts": {
         "serve": "./node_modules/.bin/vue-cli-service serve",
