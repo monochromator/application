@@ -5,11 +5,8 @@
             "yAxis_title": "Intensity",
             "colorscale_title": "Visible light",
             "line_title": "Results",
-            "filter_btn_title": "Filters",
             "save_btn_title": "Save",
-            "close_btn_title": "Close",
-            "filter_btn_raw": "Raw data",
-            "filter_btn_smooth": "Smooth"
+            "close_btn_title": "Close"
         }
     },
     "fr": {
@@ -18,11 +15,8 @@
             "yAxis_title": "Intensité",
             "colorscale_title": "Lumière visible",
             "line_title": "Résultats",
-            "filter_btn_title": "Filtres",
             "save_btn_title": "Sauvegarder",
-            "close_btn_title": "Fermer",
-            "filter_btn_raw": "Données brutes",
-            "filter_btn_smooth": "Lissage"
+            "close_btn_title": "Fermer"
         }
     }
 }

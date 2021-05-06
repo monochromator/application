@@ -118,7 +118,7 @@
         public updateAnalysis: (id: string, data: [number, number][]) => void;
 
         @Prop({ required: true })
-        public updateAnalysisStatus: (running: boolean) => void;
+        public updateComputingStatus: (running: boolean) => void;
 
         private nameLimit = 30;
         private presets: Preset[] = [
@@ -157,7 +157,7 @@
         }
 
         beforeUpdate() {
-            this.updateAnalysisStatus(this.analysisIsRunning());
+            this.updateComputingStatus(this.analysisIsRunning());
         }
 
         beforeDestroy() {
@@ -337,8 +337,6 @@
          */
         stopAnalysis() {
             this.$data.analysisStatus.remaining = 0;
-
-            // TODO: Implement analysis killer
         }
     }
 </script>

@@ -13,21 +13,23 @@
 
       <md-dialog-actions>
         <md-button class="md-primary md-raised" @click="closeDialog()">{{$t("calibration_dialog.close")}}</md-button>
-        <md-button class="md-primary md-raised" @click="calibrate" :disabled="$data.calibrationRunning">{{$t("calibration_dialog.run")}}</md-button>
-        <span style="width: 10px" v-if="$data.calibrationRunning" />
-        <md-progress-spinner md-mode="indeterminate" :md-diameter="30" :md-stroke="5" v-if="$data.calibrationRunning"></md-progress-spinner>
+        <md-button class="md-primary md-raised" @click="calibrate">{{$t("calibration_dialog.run")}}</md-button>
       </md-dialog-actions>
     </md-dialog>
 
     <md-snackbar md-position="center" :md-duration="3000" :md-active.sync="$data.errorNotification.status" md-persistent>
       <span>{{ $t($data.errorNotification.label, $data.errorNotification.parameters) }}</span>
     </md-snackbar>
+
+    <md-snackbar md-position="left" :md-duration="Infinity" :md-active="$data.calibrationRunning" md-persistent>
+      <span>{{$t("calibration_dialog.progress_msg")}}</span>
+    </md-snackbar>
   </div>
 </template>
 
 <script lang="ts">
     import ErrorNotification from "@/common/ErrorNotification";
-    import { Component, Vue } from "vue-property-decorator";
+    import { Component, Prop, Vue } from "vue-property-decorator";
     import { HttpMethod, query } from "@/services/ChromelyService";
 
     /**
@@ -54,6 +56,9 @@
      */
     @Component
     export default class CalibrationDialog extends Vue {
+        @Prop({ required: true })
+        public updateComputingStatus: (running: boolean) => void;
+
         data(): CalibrationDialogData {
             return {
                 status: false,
@@ -74,6 +79,10 @@
             window.addEventListener(CALIBRATION_ERROR_EVENT, this.onCalibrationError);
         }
 
+        beforeUpdate() {
+            this.updateComputingStatus(this.$data.calibrationRunning);
+        }
+
         beforeDestroy() {
             window.removeEventListener(CALIBRATION_END_EVENT, this.onCalibrationEnd);
             window.removeEventListener(CALIBRATION_ERROR_EVENT, this.onCalibrationError);
@@ -83,7 +92,7 @@
          * Callback on calibration end
          */
         onCalibrationEnd() {
-            this.closeDialog();
+            this.$data.calibrationRunning = false;
         }
 
         /**
@@ -91,7 +100,7 @@
          */
         onCalibrationError() {
             this.notifyError("calibration_dialog.calibration_error");
-            this.closeDialog();
+            this.$data.calibrationRunning = false;
         }
 
         /**
@@ -110,7 +119,7 @@
          * Callibrate monochromator
          */
         calibrate() {
-            this.$data.calibrationRunning = true;
+            this.closeDialog();
 
             query({
                 method: HttpMethod.Post,
@@ -119,10 +128,9 @@
                     wavelength: parseFloat(this.$data.form.wavelength)
                 }
             }, () => {
-                // Do nothing
+                this.$data.calibrationRunning = true;
             }, () => {
                 this.notifyError("calibration_dialog.calibration_error");
-                this.closeDialog();
             });
         }
 
@@ -147,9 +155,6 @@
          */
         closeDialog() {
             this.$data.status = false;
-            this.$data.calibrationRunning = false;
-
-            // TODO: Implement close with calibration killer
         }
     }
 </script>

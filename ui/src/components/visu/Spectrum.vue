@@ -9,14 +9,6 @@
         >{{ $t("spectrum.save_btn_title") }}
         <md-icon>save</md-icon></md-button
       >
-
-      <md-menu md-size="small">
-        <md-button md-menu-trigger class="md-raised">{{$t("spectrum.filter_btn_title")}}</md-button>
-        <md-menu-content>
-          <md-menu-item>{{ $t("spectrum.filter_btn_raw") }}</md-menu-item>
-          <md-menu-item>{{ $t("spectrum.filter_btn_smooth") }}</md-menu-item>
-        </md-menu-content>
-      </md-menu>
     </div>
 
     <div :id="'spectrum_plot_' + id" />
