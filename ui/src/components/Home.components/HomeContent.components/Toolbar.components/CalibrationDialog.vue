@@ -148,8 +148,6 @@
         closeDialog() {
             this.$data.status = false;
             this.$data.calibrationRunning = false;
-
-            // TODO: Implement close with calibration killer
         }
     }
 </script>

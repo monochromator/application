@@ -337,8 +337,6 @@
          */
         stopAnalysis() {
             this.$data.analysisStatus.remaining = 0;
-
-            // TODO: Implement analysis killer
         }
     }
 </script>
